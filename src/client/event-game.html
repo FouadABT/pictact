@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0" />
+    <title>Urban Architecture Challenge - Live Game - PicTact</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <a href="index.html" class="logo-link">
+              <h1 class="app-title">🎯 PicTact</h1>
+            </a>
+            <nav class="breadcrumb">
+              <a href="index.html">Home</a>
+              <span class="breadcrumb-separator">›</span>
+              <a href="event-details.html">Urban Architecture Challenge</a>
+              <span class="breadcrumb-separator">›</span>
+              <span class="breadcrumb-current">Live Game</span>
+            </nav>
+          </div>
+          <div class="header-actions">
+            <div class="live-indicator">
+              <span class="live-dot"></span>
+              <span>LIVE</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="window.location.href='event-details.html'">
+              <span>← Exit Game</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Game Interface -->
+      <main class="game-main">
+        <div class="game-container">
+          <!-- Game Status Bar -->
+          <div class="game-status">
+            <div class="status-left">
+              <div class="event-info">
+                <h2 class="event-title">Urban Architecture Challenge</h2>
+                <span class="question-counter">Question 3 of 10</span>
+              </div>
+            </div>
+            <div class="status-center">
+              <div class="timer-container">
+                <div class="timer-circle">
+                  <div class="timer-progress" data-progress="65"></div>
+                  <div class="timer-text">
+                    <span class="timer-minutes">2</span>
+                    <span class="timer-separator">:</span>
+                    <span class="timer-seconds">35</span>
+                  </div>
+                </div>
+                <span class="timer-label">Time Remaining</span>
+              </div>
+            </div>
+            <div class="status-right">
+              <div class="participant-count">
+                <span class="count-number">47</span>
+                <span class="count-label">Active Players</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Game Content -->
+          <div class="game-content">
+            <!-- Question Section -->
+            <section class="question-section">
+              <div class="question-card">
+                <div class="question-header">
+                  <div class="creator-info">
+                    <img src="https://i.pravatar.cc/40?img=1" alt="Creator" class="creator-avatar">
+                    <div class="creator-details">
+                      <span class="creator-name">@ArchitecturalLens</span>
+                      <span class="creator-badge">Event Creator</span>
+                    </div>
+                  </div>
+                  <div class="question-meta">
+                    <span class="points-reward">+150 pts</span>
+                  </div>
+                </div>
+                
+                <div class="question-content">
+                  <h3 class="question-title">Find a building with unique geometric patterns on its facade</h3>
+                  <p class="question-description">
+                    Look for architectural details that showcase interesting geometric designs - this could be decorative elements, 
+                    window arrangements, or structural patterns. Focus on buildings that demonstrate creative use of shapes and symmetry.
+                  </p>
+                  
+                  <div class="question-requirements">
+                    <div class="requirement-item">
+                      <span class="requirement-icon">📐</span>
+                      <span>Clear geometric patterns visible</span>
+                    </div>
+                    <div class="requirement-item">
+                      <span class="requirement-icon">🏢</span>
+                      <span>Building facade must be main focus</span>
+                    </div>
+                    <div class="requirement-item">
+                      <span class="requirement-icon">📸</span>
+                      <span>Good lighting and clear details</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Submission Section -->
+            <section class="submission-section">
+              <div class="submission-card">
+                <h4 class="submission-title">Your Response</h4>
+                <div class="upload-area" id="imageUpload">
+                  <input type="file" id="imageInput" class="file-input" accept="image/*">
+                  <label for="imageInput" class="upload-label">
+                    <div class="upload-content">
+                      <div class="upload-icon-large">📷</div>
+                      <h5 class="upload-title">Upload Your Photo</h5>
+                      <p class="upload-subtitle">Drag & drop or click to select</p>
+                      <div class="upload-button">Choose Image</div>
+                    </div>
+                  </label>
+                </div>
+                
+                <div class="image-preview" id="imagePreview" style="display: none;">
+                  <img id="previewImg" class="preview-image" alt="Preview">
+                  <div class="preview-actions">
+                    <button class="btn btn-outline btn-sm" onclick="removeImage()">
+                      <span>✕ Remove</span>
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="changeImage()">
+                      <span>📷 Change Image</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="submission-actions">
+                  <textarea 
+                    class="submission-comment" 
+                    placeholder="Add an optional comment about your photo... (e.g., location, interesting details)"
+                    rows="3"
+                  ></textarea>
+                  <button class="btn btn-primary btn-lg submit-btn" id="submitBtn">
+                    <span class="btn-icon">🚀</span>
+                    <span>Submit Response</span>
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Live Feed Sidebar -->
+          <aside class="live-feed">
+            <div class="feed-header">
+              <h4 class="feed-title">
+                <span class="feed-icon">🔴</span>
+                Live Responses
+              </h4>
+              <span class="feed-count">23 responses</span>
+            </div>
+
+            <div class="feed-content">
+              <!-- Response Items -->
+              <div class="response-item">
+                <div class="response-header">
+                  <img src="https://i.pravatar.cc/32?img=5" alt="User" class="response-avatar">
+                  <div class="response-info">
+                    <span class="response-username">@PhotoHunter92</span>
+                    <span class="response-time">12s ago</span>
+                  </div>
+                  <div class="response-points">+150</div>
+                </div>
+                <div class="response-image">
+                  <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=150&fit=crop" alt="Response" class="response-img">
+                </div>
+                <div class="response-comment">
+                  Found this amazing Art Deco building downtown! Love the geometric sunburst pattern above the entrance.
+                </div>
+                <div class="response-actions">
+                  <button class="response-action">👍 8</button>
+                  <button class="response-action">💬 2</button>
+                </div>
+              </div>
+
+              <div class="response-item">
+                <div class="response-header">
+                  <img src="https://i.pravatar.cc/32?img=8" alt="User" class="response-avatar">
+                  <div class="response-info">
+                    <span class="response-username">@UrbanExplorer</span>
+                    <span class="response-time">28s ago</span>
+                  </div>
+                  <div class="response-points">+150</div>
+                </div>
+                <div class="response-image">
+                  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop" alt="Response" class="response-img">
+                </div>
+                <div class="response-comment">
+                  Modern office building with incredible triangular window patterns creating a diamond effect!
+                </div>
+                <div class="response-actions">
+                  <button class="response-action">👍 12</button>
+                  <button class="response-action">💬 5</button>
+                </div>
+              </div>
+
+              <div class="response-item">
+                <div class="response-header">
+                  <img src="https://i.pravatar.cc/32?img=3" alt="User" class="response-avatar">
+                  <div class="response-info">
+                    <span class="response-username">@CityScout</span>
+                    <span class="response-time">45s ago</span>
+                  </div>
+                  <div class="response-points">+150</div>
+                </div>
+                <div class="response-image">
+                  <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&h=150&fit=crop" alt="Response" class="response-img">
+                </div>
+                <div class="response-comment">
+                  Classic brutalist architecture with amazing concrete geometric forms!
+                </div>
+                <div class="response-actions">
+                  <button class="response-action">👍 6</button>
+                  <button class="response-action">💬 1</button>
+                </div>
+              </div>
+
+              <div class="response-item">
+                <div class="response-header">
+                  <img src="https://i.pravatar.cc/32?img=12" alt="User" class="response-avatar">
+                  <div class="response-info">
+                    <span class="response-username">@ArchLover</span>
+                    <span class="response-time">1m ago</span>
+                  </div>
+                  <div class="response-points">+150</div>
+                </div>
+                <div class="response-image">
+                  <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=200&h=150&fit=crop" alt="Response" class="response-img">
+                </div>
+                <div class="response-comment">
+                  Beautiful Islamic-inspired geometric patterns on this cultural center facade.
+                </div>
+                <div class="response-actions">
+                  <button class="response-action">👍 15</button>
+                  <button class="response-action">💬 3</button>
+                </div>
+              </div>
+
+              <div class="response-item">
+                <div class="response-header">
+                  <img src="https://i.pravatar.cc/32?img=7" alt="User" class="response-avatar">
+                  <div class="response-info">
+                    <span class="response-username">@GeometryFan</span>
+                    <span class="response-time">1m ago</span>
+                  </div>
+                  <div class="response-points">+150</div>
+                </div>
+                <div class="response-image">
+                  <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=200&h=150&fit=crop" alt="Response" class="response-img">
+                </div>
+                <div class="response-comment">
+                  Hexagonal window pattern creates this stunning honeycomb effect on the university library.
+                </div>
+                <div class="response-actions">
+                  <button class="response-action">👍 9</button>
+                  <button class="response-action">💬 4</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini Leaderboard -->
+            <div class="mini-leaderboard">
+              <h5 class="leaderboard-title">🏆 Current Standings</h5>
+              <div class="leaderboard-list">
+                <div class="leaderboard-item">
+                  <span class="rank">1</span>
+                  <img src="https://i.pravatar.cc/24?img=5" alt="User" class="user-avatar">
+                  <span class="username">@PhotoHunter92</span>
+                  <span class="points">450</span>
+                </div>
+                <div class="leaderboard-item">
+                  <span class="rank">2</span>
+                  <img src="https://i.pravatar.cc/24?img=8" alt="User" class="user-avatar">
+                  <span class="username">@UrbanExplorer</span>
+                  <span class="points">420</span>
+                </div>
+                <div class="leaderboard-item">
+                  <span class="rank">3</span>
+                  <img src="https://i.pravatar.cc/24?img=12" alt="User" class="user-avatar">
+                  <span class="username">@ArchLover</span>
+                  <span class="points">390</span>
+                </div>
+                <div class="leaderboard-item">
+                  <span class="rank">4</span>
+                  <img src="https://i.pravatar.cc/24?img=3" alt="User" class="user-avatar">
+                  <span class="username">@CityScout</span>
+                  <span class="points">315</span>
+                </div>
+                <div class="leaderboard-item current-user">
+                  <span class="rank">12</span>
+                  <img src="https://i.pravatar.cc/24?img=15" alt="You" class="user-avatar">
+                  <span class="username">You</span>
+                  <span class="points">180</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Question Transition Overlay -->
+        <div class="transition-overlay" id="transitionOverlay" style="display: none;">
+          <div class="transition-content">
+            <div class="transition-icon">⏱️</div>
+            <h3 class="transition-title">Time's Up!</h3>
+            <p class="transition-message">Preparing next question...</p>
+            <div class="transition-progress">
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="main.ts"></script>
+    <script type="module" src="event-game.js"></script>
+  </body>
+</html>

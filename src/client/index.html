@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0"
+    />
+    <title>PicTact - Real-Time Image Hunt</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <h1 id="title" class="app-title">🎯 PicTact</h1>
+            <p class="app-tagline">Community Image Hunt Game</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary btn-sm">My Profile</button>
+            <a href="create-event.html" class="btn btn-primary btn-sm">Create Event</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h2 class="hero-title">Compete in Real-Time Image Hunts!</h2>
+          <p class="hero-description">Join live events, find specific images faster than others, and climb the leaderboards. Create your own hunts and moderate exciting competitions.</p>
+          
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg hero-btn">
+              <span class="btn-icon">🎮</span>
+              <span>Join Live Game</span>
+            </button>
+            <a href="create-event.html" class="btn btn-secondary btn-lg hero-btn">
+              <span class="btn-icon">🏆</span>
+              <span>Create Event</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Live Games Section -->
+        <section class="content-section">
+          <div class="section-header">
+            <h3 class="section-title">🔥 Live Games</h3>
+            <span class="section-badge">3 active</span>
+          </div>
+          
+          <div class="games-grid">
+            <!-- Live Game Card 1 -->
+            <div class="game-card live-game">
+              <div class="game-header">
+                <div class="game-info">
+                  <h4 class="game-title">90s Gaming Hunt</h4>
+                  <p class="game-creator">by <span class="username">@RetroGamer</span></p>
+                </div>
+                <div class="game-status">
+                  <span class="status-badge live">LIVE</span>
+                </div>
+              </div>
+              
+              <div class="game-stats">
+                <div class="stat">
+                  <span class="stat-icon">👥</span>
+                  <span class="stat-value">12 players</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">⏰</span>
+                  <span class="stat-value">5min left</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">🏆</span>
+                  <span class="stat-value">250 pts</span>
+                </div>
+              </div>
+              
+              <div class="current-challenge">
+                <p class="challenge-label">Current Challenge:</p>
+                <p class="challenge-text">"Find a PlayStation 1 RPG cover with a sword-wielding character"</p>
+              </div>
+              
+              <button class="btn btn-primary btn-md game-join-btn">🚀 Join Now</button>
+            </div>
+
+            <!-- Live Game Card 2 -->
+            <div class="game-card live-game">
+              <div class="game-header">
+                <div class="game-info">
+                  <h4 class="game-title">Movie Poster Hunt</h4>
+                  <p class="game-creator">by <span class="username">@CinephileMode</span></p>
+                </div>
+                <div class="game-status">
+                  <span class="status-badge live">LIVE</span>
+                </div>
+              </div>
+              
+              <div class="game-stats">
+                <div class="stat">
+                  <span class="stat-icon">👥</span>
+                  <span class="stat-value">8 players</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">⏰</span>
+                  <span class="stat-value">12min left</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">🏆</span>
+                  <span class="stat-value">180 pts</span>
+                </div>
+              </div>
+              
+              <div class="current-challenge">
+                <p class="challenge-label">Current Challenge:</p>
+                <p class="challenge-text">"2000s action movie poster with explosions in the background"</p>
+              </div>
+              
+              <button class="btn btn-primary btn-md game-join-btn">🚀 Join Now</button>
+            </div>
+
+            <!-- Live Game Card 3 -->
+            <a href="event-details.html?id=urban-architecture" class="game-card live-game clickable-card">
+              <div class="game-header">
+                <div class="game-info">
+                  <h4 class="game-title">Urban Architecture Challenge</h4>
+                  <p class="game-creator">by <span class="username">@ArchHunter</span></p>
+                </div>
+                <div class="game-status">
+                  <span class="status-badge live">LIVE</span>
+                </div>
+              </div>
+              
+              <div class="game-stats">
+                <div class="stat">
+                  <span class="stat-icon">👥</span>
+                  <span class="stat-value">127 players</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">⏰</span>
+                  <span class="stat-value">2h 15min left</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-icon">🏆</span>
+                  <span class="stat-value">500 pts</span>
+                </div>
+              </div>
+              
+              <div class="current-challenge">
+                <p class="challenge-label">Current Challenge:</p>
+                <p class="challenge-text">"Find Art Deco facades and modern glass structures in city environments"</p>
+              </div>
+              
+              <div class="card-overlay">
+                <span class="overlay-text">Click to view details</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section class="content-section">
+          <div class="section-header">
+            <h3 class="section-title">📅 Upcoming Events</h3>
+            <a href="#" class="section-link">View all</a>
+          </div>
+          
+          <div class="upcoming-list">
+            <div class="upcoming-item">
+              <div class="upcoming-time">
+                <span class="time-value">2h</span>
+                <span class="time-label">from now</span>
+              </div>
+              <div class="upcoming-info">
+                <h4 class="upcoming-title">Anime Hunt Championship</h4>
+                <p class="upcoming-creator">by @AnimeExpert • Expected 25+ players</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Set Reminder</button>
+            </div>
+            
+            <div class="upcoming-item">
+              <div class="upcoming-time">
+                <span class="time-value">1d</span>
+                <span class="time-label">from now</span>
+              </div>
+              <div class="upcoming-info">
+                <h4 class="upcoming-title">Vintage Car Show Hunt</h4>
+                <p class="upcoming-creator">by @ClassicCars • Expected 15+ players</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Set Reminder</button>
+            </div>
+            
+            <div class="upcoming-item">
+              <div class="upcoming-time">
+                <span class="time-value">2d</span>
+                <span class="time-label">from now</span>
+              </div>
+              <div class="upcoming-info">
+                <h4 class="upcoming-title">Food Photography Hunt</h4>
+                <p class="upcoming-creator">by @FoodieHunter • Expected 30+ players</p>
+              </div>
+              <button class="btn btn-outline btn-sm">Set Reminder</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section class="content-section">
+          <div class="section-header">
+            <h3 class="section-title">🏆 Top Hunters</h3>
+            <a href="#" class="section-link">View full leaderboard</a>
+          </div>
+          
+          <div class="leaderboard">
+            <div class="leaderboard-item rank-1">
+              <div class="rank-medal">🥇</div>
+              <div class="user-info">
+                <span class="username">@SpeedHunter</span>
+                <span class="user-stats">12 wins • 89% accuracy</span>
+              </div>
+              <div class="points">2,450 pts</div>
+            </div>
+            
+            <div class="leaderboard-item rank-2">
+              <div class="rank-medal">🥈</div>
+              <div class="user-info">
+                <span class="username">@ImagePro</span>
+                <span class="user-stats">8 wins • 92% accuracy</span>
+              </div>
+              <div class="points">2,190 pts</div>
+            </div>
+            
+            <div class="leaderboard-item rank-3">
+              <div class="rank-medal">🥉</div>
+              <div class="user-info">
+                <span class="username">@QuickFind</span>
+                <span class="user-stats">10 wins • 85% accuracy</span>
+              </div>
+              <div class="points">1,870 pts</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="rank-number">4</div>
+              <div class="user-info">
+                <span class="username">@RetroGamer</span>
+                <span class="user-stats">6 wins • 88% accuracy</span>
+              </div>
+              <div class="points">1,650 pts</div>
+            </div>
+            
+            <div class="leaderboard-item">
+              <div class="rank-number">5</div>
+              <div class="user-info">
+                <span class="username">@CinephileMode</span>
+                <span class="user-stats">7 wins • 81% accuracy</span>
+              </div>
+              <div class="points">1,480 pts</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="main.ts"></script>
+  </body>
+</html>

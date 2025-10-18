@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0" />
+    <title>Create Event - PicTact</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <a href="index.html" class="logo-link">
+              <h1 class="app-title">🎯 PicTact</h1>
+            </a>
+            <nav class="breadcrumb">
+              <a href="index.html">Home</a>
+              <span class="breadcrumb-separator">›</span>
+              <span class="breadcrumb-current">Create Event</span>
+            </nav>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary btn-sm" onclick="window.location.href='index.html'">
+              <span>← Back</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="create-event-main">
+        <div class="create-event-container">
+          <!-- Page Title -->
+          <div class="page-header">
+            <h1 class="page-title">Create New Image Hunt Event</h1>
+            <p class="page-subtitle">Set up an exciting image hunting competition for the community</p>
+          </div>
+
+          <!-- Creation Form -->
+          <form class="event-form" id="eventForm">
+            <!-- Basic Information Section -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">📝 Basic Information</h2>
+                <p class="section-description">Essential details about your event</p>
+              </div>
+              
+              <div class="form-group">
+                <label for="eventTitle" class="form-label">Event Title *</label>
+                <input 
+                  type="text" 
+                  id="eventTitle" 
+                  name="eventTitle" 
+                  class="form-input" 
+                  placeholder="e.g., 90s Gaming Hunt Championship"
+                  maxlength="80"
+                  required
+                >
+                <div class="form-help">
+                  <span class="char-counter">0/80</span>
+                  <span class="help-text">Choose a catchy, descriptive title</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="eventCategory" class="form-label">Category *</label>
+                <select id="eventCategory" name="eventCategory" class="form-select" required>
+                  <option value="">Select a category...</option>
+                  <option value="gaming">🎮 Gaming</option>
+                  <option value="movies">🎬 Movies & TV</option>
+                  <option value="music">🎵 Music</option>
+                  <option value="sports">⚽ Sports</option>
+                  <option value="food">🍕 Food & Cooking</option>
+                  <option value="travel">✈️ Travel & Places</option>
+                  <option value="technology">💻 Technology</option>
+                  <option value="art">🎨 Art & Design</option>
+                  <option value="nature">🌿 Nature & Animals</option>
+                  <option value="vintage">📻 Vintage & Retro</option>
+                  <option value="other">🌟 Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="eventDescription" class="form-label">Description *</label>
+                <div class="wysiwyg-container">
+                  <!-- WYSIWYG Toolbar -->
+                  <div class="wysiwyg-toolbar">
+                    <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
+                      <strong>B</strong>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="italic" title="Italic">
+                      <em>I</em>
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="underline" title="Underline">
+                      <u>U</u>
+                    </button>
+                    <div class="toolbar-divider"></div>
+                    <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                      • List
+                    </button>
+                    <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                      1. List
+                    </button>
+                    <div class="toolbar-divider"></div>
+                    <button type="button" class="toolbar-btn" data-command="createLink" title="Insert Link">
+                      🔗 Link
+                    </button>
+                  </div>
+                  
+                  <!-- WYSIWYG Editor -->
+                  <div 
+                    id="eventDescription" 
+                    class="wysiwyg-editor" 
+                    contenteditable="true"
+                    data-placeholder="Describe your event in detail. What type of images will participants search for? What makes this event special? Include any rules or guidelines..."
+                  ></div>
+                  
+                  <div class="form-help">
+                    <span class="help-text">Use the toolbar to format your description. Be specific about the types of images participants should find.</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Event Settings Section -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">⚙️ Event Settings</h2>
+                <p class="section-description">Configure timing, participants, and game mechanics</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="startTime" class="form-label">Start Time *</label>
+                  <input 
+                    type="datetime-local" 
+                    id="startTime" 
+                    name="startTime" 
+                    class="form-input"
+                    required
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="duration" class="form-label">Duration *</label>
+                  <select id="duration" name="duration" class="form-select" required>
+                    <option value="">Select duration...</option>
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">1.5 hours</option>
+                    <option value="120">2 hours</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="maxParticipants" class="form-label">Max Participants</label>
+                  <input 
+                    type="number" 
+                    id="maxParticipants" 
+                    name="maxParticipants" 
+                    class="form-input"
+                    placeholder="25"
+                    min="2"
+                    max="100"
+                  >
+                  <div class="form-help">
+                    <span class="help-text">Leave blank for unlimited</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="difficulty" class="form-label">Difficulty Level *</label>
+                  <select id="difficulty" name="difficulty" class="form-select" required>
+                    <option value="">Select difficulty...</option>
+                    <option value="beginner">🟢 Beginner - Easy to find images</option>
+                    <option value="intermediate">🟡 Intermediate - Moderate challenge</option>
+                    <option value="advanced">🟠 Advanced - Hard to find images</option>
+                    <option value="expert">🔴 Expert - Very challenging</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- Point System Section -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">🏆 Points & Rewards</h2>
+                <p class="section-description">Set up the scoring system and rewards</p>
+              </div>
+
+              <div class="point-system">
+                <div class="form-group">
+                  <label class="form-label">Point Distribution</label>
+                  <div class="point-settings">
+                    <div class="point-item">
+                      <label for="firstPlace" class="point-label">🥇 1st Place</label>
+                      <input type="number" id="firstPlace" name="firstPlace" class="form-input point-input" value="100" min="1">
+                      <span class="point-unit">points</span>
+                    </div>
+                    <div class="point-item">
+                      <label for="secondPlace" class="point-label">🥈 2nd Place</label>
+                      <input type="number" id="secondPlace" name="secondPlace" class="form-input point-input" value="75" min="1">
+                      <span class="point-unit">points</span>
+                    </div>
+                    <div class="point-item">
+                      <label for="thirdPlace" class="point-label">🥉 3rd Place</label>
+                      <input type="number" id="thirdPlace" name="thirdPlace" class="form-input point-input" value="50" min="1">
+                      <span class="point-unit">points</span>
+                    </div>
+                    <div class="point-item">
+                      <label for="participationPoints" class="point-label">👥 Participation</label>
+                      <input type="number" id="participationPoints" name="participationPoints" class="form-input point-input" value="10" min="0">
+                      <span class="point-unit">points</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Bonus Points (Optional)</label>
+                  <div class="bonus-settings">
+                    <div class="checkbox-group">
+                      <input type="checkbox" id="speedBonus" name="bonuses" value="speed">
+                      <label for="speedBonus" class="checkbox-label">⚡ Speed Bonus (+20 points for answers within 30 seconds)</label>
+                    </div>
+                    <div class="checkbox-group">
+                      <input type="checkbox" id="qualityBonus" name="bonuses" value="quality">
+                      <label for="qualityBonus" class="checkbox-label">⭐ Quality Bonus (+15 points for exceptional image quality)</label>
+                    </div>
+                    <div class="checkbox-group">
+                      <input type="checkbox" id="streakBonus" name="bonuses" value="streak">
+                      <label for="streakBonus" class="checkbox-label">🔥 Streak Bonus (+5 points per consecutive correct answer)</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Trophy Section -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">🏆 Event Trophy</h2>
+                <p class="section-description">Choose or upload a custom trophy for winners</p>
+              </div>
+
+              <div class="trophy-selection">
+                <div class="trophy-options">
+                  <div class="trophy-grid">
+                    <!-- Default Trophies -->
+                    <div class="trophy-option active" data-trophy="default-gold">
+                      <div class="trophy-preview">
+                        <div class="default-trophy gold">🏆</div>
+                      </div>
+                      <span class="trophy-name">Golden Cup</span>
+                    </div>
+                    
+                    <div class="trophy-option" data-trophy="default-silver">
+                      <div class="trophy-preview">
+                        <div class="default-trophy silver">🥇</div>
+                      </div>
+                      <span class="trophy-name">Gold Medal</span>
+                    </div>
+                    
+                    <div class="trophy-option" data-trophy="default-crown">
+                      <div class="trophy-preview">
+                        <div class="default-trophy crown">👑</div>
+                      </div>
+                      <span class="trophy-name">Crown</span>
+                    </div>
+                    
+                    <div class="trophy-option" data-trophy="default-star">
+                      <div class="trophy-preview">
+                        <div class="default-trophy star">⭐</div>
+                      </div>
+                      <span class="trophy-name">Star</span>
+                    </div>
+
+                    <div class="trophy-option" data-trophy="default-diamond">
+                      <div class="trophy-preview">
+                        <div class="default-trophy diamond">💎</div>
+                      </div>
+                      <span class="trophy-name">Diamond</span>
+                    </div>
+
+                    <div class="trophy-option" data-trophy="default-fire">
+                      <div class="trophy-preview">
+                        <div class="default-trophy fire">🔥</div>
+                      </div>
+                      <span class="trophy-name">Fire</span>
+                    </div>
+
+                    <!-- Custom Trophy Upload -->
+                    <div class="trophy-option custom-upload" data-trophy="custom">
+                      <div class="trophy-preview">
+                        <div class="upload-placeholder">
+                          <span class="upload-icon">📁</span>
+                          <span class="upload-text">Custom</span>
+                        </div>
+                      </div>
+                      <span class="trophy-name">Upload Custom</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Custom Trophy Upload Area -->
+                  <div class="custom-trophy-upload" id="customTrophyUpload" style="display: none;">
+                    <div class="upload-area">
+                      <input type="file" id="trophyFile" accept="image/*" class="file-input">
+                      <label for="trophyFile" class="upload-label">
+                        <div class="upload-content">
+                          <span class="upload-icon-large">📁</span>
+                          <p class="upload-title">Upload Custom Trophy</p>
+                          <p class="upload-subtitle">PNG, JPG, or GIF up to 2MB</p>
+                          <span class="upload-button">Choose File</span>
+                        </div>
+                      </label>
+                      <div class="upload-preview" id="trophyPreview" style="display: none;">
+                        <img id="trophyImage" alt="Trophy preview" class="trophy-image">
+                        <button type="button" class="remove-trophy" id="removeTrophy">✕</button>
+                      </div>
+                    </div>
+                    <div class="form-help">
+                      <span class="help-text">Recommended size: 200x200px. Square images work best.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Selected Trophy Display -->
+                <div class="selected-trophy">
+                  <h3 class="selected-trophy-title">Selected Trophy:</h3>
+                  <div class="selected-trophy-preview" id="selectedTrophyPreview">
+                    <div class="default-trophy gold">🏆</div>
+                  </div>
+                  <p class="selected-trophy-name" id="selectedTrophyName">Golden Cup</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="form-section">
+              <div class="section-header">
+                <h2 class="section-title">👁️ Event Preview</h2>
+                <p class="section-description">How your event will appear to participants</p>
+              </div>
+
+              <div class="event-preview" id="eventPreview">
+                <div class="preview-card">
+                  <div class="preview-header">
+                    <div class="preview-info">
+                      <h4 class="preview-title">Your Event Title</h4>
+                      <p class="preview-creator">by @YourUsername</p>
+                    </div>
+                    <div class="preview-trophy">
+                      <div class="preview-trophy-icon">🏆</div>
+                    </div>
+                  </div>
+                  
+                  <div class="preview-stats">
+                    <div class="preview-stat">
+                      <span class="stat-icon">🏆</span>
+                      <span class="stat-value">100 pts</span>
+                    </div>
+                    <div class="preview-stat">
+                      <span class="stat-icon">⏰</span>
+                      <span class="stat-value">60 min</span>
+                    </div>
+                    <div class="preview-stat">
+                      <span class="stat-icon">👥</span>
+                      <span class="stat-value">Max 25</span>
+                    </div>
+                  </div>
+                  
+                  <div class="preview-description">
+                    <p>Your event description will appear here...</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary btn-lg" onclick="window.history.back()">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-outline btn-lg" id="saveAsDraft">
+                💾 Save as Draft
+              </button>
+              <button type="submit" class="btn btn-primary btn-lg">
+                🚀 Create Event
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="main.ts"></script>
+    <script type="module" src="create-event.js"></script>
+  </body>
+</html>

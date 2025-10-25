@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "name": "Auto Deploy Devvit App",
+  "description": "Automatically builds, deploys, and commits changes to GitHub when source code is modified in the Reddit Devvit app",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.js",
+      "src/**/*.html",
+      "src/**/*.css",
+      "package.json",
+      "devvit.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The source code for the Reddit Devvit app has been modified. Please run the following commands in sequence: 1) npm run build to build the application, 2) npm run deploy to deploy to Reddit Devvit platform, 3) git add . to stage all changes, 4) git commit -m \"Auto-deploy: Updated app after source changes\" to commit the changes, 5) git push to push changes to GitHub. Ensure each command completes successfully before proceeding to the next one."
+  }
+}

@@ -55,32 +55,46 @@ class EventCreator {
         const toolbar = document.querySelector('.wysiwyg-toolbar');
         const editor = document.getElementById('eventDescription');
 
-        // Toolbar button handlers
+        if (!toolbar || !editor) {
+            console.error('WYSIWYG elements not found');
+            return;
+        }
+
+        // Simple toolbar handlers
         toolbar.addEventListener('click', (e) => {
-            if (e.target.classList.contains('toolbar-btn')) {
-                e.preventDefault();
-                const command = e.target.getAttribute('data-command');
-                
+            e.preventDefault();
+            
+            const button = e.target.closest('.toolbar-btn');
+            if (!button) return;
+            
+            const command = button.getAttribute('data-command');
+            
+            // Focus editor first
+            editor.focus();
+            
+            try {
                 if (command === 'createLink') {
-                    const url = prompt('Enter URL:');
-                    if (url) {
+                    const url = window.prompt('Enter URL:');
+                    if (url && url.trim()) {
                         document.execCommand(command, false, url);
                     }
                 } else {
                     document.execCommand(command, false, null);
                 }
                 
-                editor.focus();
                 this.updatePreview();
+                
+            } catch (error) {
+                console.error('Error executing command:', command, error);
             }
         });
 
-        // Editor content change handler
+        // Simple content change handler
         editor.addEventListener('input', () => {
             this.updatePreview();
         });
 
-        // Handle placeholder
+        // Simple placeholder handling
         editor.addEventListener('focus', () => {
             if (editor.textContent.trim() === '') {
                 editor.classList.add('focused');
@@ -92,7 +106,11 @@ class EventCreator {
                 editor.classList.remove('focused');
             }
         });
+
+        console.log('WYSIWYG editor initialized');
     }
+
+
 
     // Initialize Trophy Selection
     initializeTrophySelection() {
@@ -182,6 +200,22 @@ class EventCreator {
         const form = document.getElementById('eventForm');
         const titleInput = document.getElementById('eventTitle');
         const charCounter = document.querySelector('.char-counter');
+
+        // Add event listeners for buttons (replacing inline handlers)
+        const backButton = document.getElementById('backButton');
+        const cancelButton = document.getElementById('cancelButton');
+        
+        if (backButton) {
+            backButton.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+        
+        if (cancelButton) {
+            cancelButton.addEventListener('click', () => {
+                window.history.back();
+            });
+        }
 
         // Character counter
         titleInput.addEventListener('input', () => {
@@ -279,14 +313,16 @@ class EventCreator {
             await this.createEvent(formData);
             
             // Show success message
-            alert('🎉 Event created successfully! Participants can now join your hunt.');
+            this.showNotification('🎉 Event created successfully! Participants can now join your hunt.', 'success');
             
-            // Redirect to main page or event details
-            window.location.href = 'index.html';
+            // Redirect to main page after a short delay
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
             
         } catch (error) {
             console.error('Error creating event:', error);
-            alert('❌ Error creating event. Please try again.');
+            this.showNotification('❌ Error creating event. Please try again.', 'error');
             
             // Reset button
             const submitButton = e.target.querySelector('button[type="submit"]');
@@ -336,32 +372,32 @@ class EventCreator {
     // Validate form
     validateForm(data) {
         if (!data.title.trim()) {
-            alert('Please enter an event title');
+            this.showNotification('Please enter an event title', 'error');
             return false;
         }
         
         if (!data.category) {
-            alert('Please select a category');
+            this.showNotification('Please select a category', 'error');
             return false;
         }
         
         if (!data.description.trim()) {
-            alert('Please enter an event description');
+            this.showNotification('Please enter an event description', 'error');
             return false;
         }
         
         if (!data.startTime) {
-            alert('Please select a start time');
+            this.showNotification('Please select a start time', 'error');
             return false;
         }
         
         if (!data.duration) {
-            alert('Please select event duration');
+            this.showNotification('Please select event duration', 'error');
             return false;
         }
         
         if (!data.difficulty) {
-            alert('Please select difficulty level');
+            this.showNotification('Please select difficulty level', 'error');
             return false;
         }
 
@@ -369,30 +405,80 @@ class EventCreator {
         const startTime = new Date(data.startTime);
         const now = new Date();
         if (startTime <= now) {
-            alert('Start time must be in the future');
+            this.showNotification('Start time must be in the future', 'error');
             return false;
         }
 
         return true;
     }
 
+    // Show custom notification instead of alert
+    showNotification(message, type = 'info') {
+        // Remove existing notifications
+        const existing = document.querySelector('.custom-notification');
+        if (existing) {
+            existing.remove();
+        }
+
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `custom-notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}</span>
+                <span class="notification-message">${message}</span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+        `;
+
+        // Add to page
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+
     // Create event (API call)
     async createEvent(eventData) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // TODO: Replace with actual API endpoint
-        console.log('Creating event with data:', eventData);
-        
-        // For now, just store in localStorage for demo
-        const events = JSON.parse(localStorage.getItem('pictact-events') || '[]');
-        events.push({
-            id: Date.now(),
-            ...eventData,
-            createdAt: new Date().toISOString(),
-            status: 'upcoming'
-        });
-        localStorage.setItem('pictact-events', JSON.stringify(events));
+        try {
+            const response = await fetch('/api/reddit/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    gameConfig: {
+                        title: eventData.title,
+                        description: eventData.description,
+                        category: eventData.category,
+                        startTime: eventData.startTime,
+                        duration: eventData.duration,
+                        maxParticipants: eventData.maxParticipants,
+                        difficulty: eventData.difficulty,
+                        pointSystem: eventData.points,
+                        bonuses: eventData.bonuses,
+                        trophy: eventData.trophy
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to create event');
+            }
+
+            const result = await response.json();
+            console.log('Event created successfully:', result);
+            
+            return result;
+        } catch (error) {
+            console.error('Error creating event:', error);
+            throw error;
+        }
     }
 
     // Save as draft
@@ -402,7 +488,7 @@ class EventCreator {
         // Save to localStorage
         localStorage.setItem('pictact-draft-event', JSON.stringify(formData));
         
-        alert('💾 Event saved as draft!');
+        this.showNotification('💾 Event saved as draft!', 'success');
     }
 }
 

@@ -5,9 +5,13 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0" />
     <title>Create Event - PicTact</title>
+    <!-- Reddit Design System Integration -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#FF4500" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1A1A1B" media="(prefers-color-scheme: dark)">
   </head>
-  <body>
-    <div class="app">
+  <body class="reddit-mobile-safe-top reddit-mobile-safe-bottom">
+    <div class="app" id="app">
       <!-- Header -->
       <header class="main-header">
         <div class="header-content">
@@ -21,16 +25,20 @@
               <span class="breadcrumb-current">Create Event</span>
             </nav>
           </div>
-          <div class="header-actions">
-            <button class="btn btn-secondary btn-sm" onclick="window.location.href='index.html'">
+          <div class="header-actions reddit-flex reddit-items-center reddit-gap-12">
+            <button class="btn btn-secondary btn-sm reddit-focus-ring" id="backButton">
               <span>← Back</span>
+            </button>
+            <!-- Reddit Theme Toggle -->
+            <button class="reddit-theme-toggle reddit-focus-ring" id="themeToggle" aria-label="Toggle theme">
+              <span class="theme-icon">🌙</span>
             </button>
           </div>
         </div>
       </header>
 
       <!-- Main Content -->
-      <main class="create-event-main">
+      <main class="create-event-main" id="main-content" role="main">
         <div class="create-event-container">
           <!-- Page Title -->
           <div class="page-header">
@@ -114,6 +122,9 @@
                     id="eventDescription" 
                     class="wysiwyg-editor" 
                     contenteditable="true"
+                    role="textbox"
+                    aria-multiline="true"
+                    aria-label="Event description"
                     data-placeholder="Describe your event in detail. What type of images will participants search for? What makes this event special? Include any rules or guidelines..."
                   ></div>
                   
@@ -383,7 +394,7 @@
 
             <!-- Form Actions -->
             <div class="form-actions">
-              <button type="button" class="btn btn-secondary btn-lg" onclick="window.history.back()">
+              <button type="button" class="btn btn-secondary btn-lg" id="cancelButton">
                 Cancel
               </button>
               <button type="button" class="btn btn-outline btn-lg" id="saveAsDraft">
@@ -400,5 +411,6 @@
 
     <script type="module" src="main.ts"></script>
     <script type="module" src="create-event.js"></script>
+    <script type="module" src="reddit-accessibility.js"></script>
   </body>
 </html>

@@ -1,270 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0"
-    />
-    <title>PicTact - Real-Time Image Hunt</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="reddit-design-system.css" />
+    <link rel="stylesheet" type="text/css" href="reddit-mobile-optimization.css" />
+    <link rel="stylesheet" type="text/css" href="reddit-web-optimization.css" />
+    <link rel="stylesheet" type="text/css" href="reddit-mobile-app-integration.css" />
+    <link rel="stylesheet" type="text/css" href="reddit-third-party-compatibility.css" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0" />
+    <meta name="description" content="PicTact - Real-time image hunt challenges on Reddit. Compete to find and capture specific images before others!" />
+    <title>PicTact - Real-Time Image Hunt Challenges</title>
   </head>
   <body>
-    <div class="app">
+    <div class="app reddit-app-container">
       <!-- Header -->
-      <header class="main-header">
-        <div class="header-content">
+      <header class="main-header reddit-header">
+        <div class="header-content reddit-flex reddit-justify-between reddit-items-center">
           <div class="logo-section">
-            <h1 id="title" class="app-title">🎯 PicTact</h1>
-            <p class="app-tagline">Community Image Hunt Game</p>
+            <h1 class="app-title reddit-text-display" id="title">🎯 PicTact</h1>
+            <p class="app-subtitle reddit-text-caption">Real-Time Image Hunt Challenges</p>
           </div>
-          <div class="header-actions">
-            <button class="btn btn-secondary btn-sm">My Profile</button>
-            <a href="create-event.html" class="btn btn-primary btn-sm">Create Event</a>
+          <div class="header-actions reddit-flex reddit-gap-12">
+            <button class="btn btn-outline btn-sm reddit-btn-secondary reddit-focus-ring" onclick="window.location.href='create-event.html'">
+              <span>➕ Create Event</span>
+            </button>
+            <button class="btn btn-primary btn-sm reddit-btn-primary reddit-focus-ring" onclick="alert('Profile coming soon!')">
+              <span>👤 Profile</span>
+            </button>
           </div>
         </div>
       </header>
 
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="hero-content">
-          <h2 class="hero-title">Compete in Real-Time Image Hunts!</h2>
-          <p class="hero-description">Join live events, find specific images faster than others, and climb the leaderboards. Create your own hunts and moderate exciting competitions.</p>
-          
-          <div class="hero-actions">
-            <button class="btn btn-primary btn-lg hero-btn">
-              <span class="btn-icon">🎮</span>
-              <span>Join Live Game</span>
-            </button>
-            <a href="create-event.html" class="btn btn-secondary btn-lg hero-btn">
-              <span class="btn-icon">🏆</span>
-              <span>Create Event</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
       <!-- Main Content -->
-      <main class="main-content">
+      <main class="main-content reddit-container">
+        <!-- Hero Section -->
+        <section class="hero-section reddit-card reddit-p-24 reddit-mb-24">
+          <div class="hero-content">
+            <h2 class="hero-title reddit-text-title">Hunt. Capture. Win.</h2>
+            <p class="hero-description reddit-text-body">
+              Join live image hunting challenges! Race against other players to find and photograph specific items. 
+              First valid submission wins points and glory!
+            </p>
+            <div class="hero-stats reddit-flex reddit-gap-24 reddit-mt-16">
+              <div class="hero-stat">
+                <div class="stat-value reddit-text-title-strong" id="gameCount">0</div>
+                <div class="stat-label reddit-text-caption">Live Games</div>
+              </div>
+              <div class="hero-stat">
+                <div class="stat-value reddit-text-title-strong">1.2K</div>
+                <div class="stat-label reddit-text-caption">Active Players</div>
+              </div>
+              <div class="hero-stat">
+                <div class="stat-value reddit-text-title-strong">50K</div>
+                <div class="stat-label reddit-text-caption">Total Hunts</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Live Games Section -->
-        <section class="content-section">
-          <div class="section-header">
-            <h3 class="section-title">🔥 Live Games</h3>
-            <span class="section-badge">3 active</span>
+        <section class="games-section reddit-mb-24">
+          <div class="section-header reddit-flex reddit-justify-between reddit-items-center reddit-mb-16">
+            <h3 class="section-title reddit-text-title">
+              <span class="section-icon">🔥</span>
+              Live Games
+            </h3>
+            <div class="section-filters reddit-flex reddit-gap-8">
+              <button class="filter-btn active reddit-btn-sm reddit-focus-ring">All</button>
+              <button class="filter-btn reddit-btn-sm reddit-focus-ring">Gaming</button>
+              <button class="filter-btn reddit-btn-sm reddit-focus-ring">Urban</button>
+              <button class="filter-btn reddit-btn-sm reddit-focus-ring">Nature</button>
+            </div>
           </div>
-          
-          <div class="games-grid">
-            <!-- Live Game Card 1 -->
-            <div class="game-card live-game">
-              <div class="game-header">
-                <div class="game-info">
-                  <h4 class="game-title">90s Gaming Hunt</h4>
-                  <p class="game-creator">by <span class="username">@RetroGamer</span></p>
-                </div>
-                <div class="game-status">
-                  <span class="status-badge live">LIVE</span>
-                </div>
-              </div>
-              
-              <div class="game-stats">
-                <div class="stat">
-                  <span class="stat-icon">👥</span>
-                  <span class="stat-value">12 players</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">⏰</span>
-                  <span class="stat-value">5min left</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">🏆</span>
-                  <span class="stat-value">250 pts</span>
-                </div>
-              </div>
-              
-              <div class="current-challenge">
-                <p class="challenge-label">Current Challenge:</p>
-                <p class="challenge-text">"Find a PlayStation 1 RPG cover with a sword-wielding character"</p>
-              </div>
-              
-              <button class="btn btn-primary btn-md game-join-btn">🚀 Join Now</button>
+
+          <!-- Games Grid -->
+          <div class="games-grid reddit-grid" id="gamesGrid">
+            <!-- Loading placeholder / Empty state -->
+            <div class="empty-state reddit-card reddit-p-32 reddit-text-center" id="noGamesMessage" style="display: none;">
+              <div class="empty-icon reddit-text-display">🎯</div>
+              <h4 class="empty-title reddit-text-title reddit-mb-8">No Live Games Right Now</h4>
+              <p class="empty-description reddit-text-body reddit-text-secondary reddit-mb-16">
+                Be the first to create a new image hunt challenge!
+              </p>
+              <button class="btn btn-primary reddit-btn-primary reddit-focus-ring" onclick="window.location.href='create-event.html'">
+                <span>🚀 Create First Event</span>
+              </button>
             </div>
 
-            <!-- Live Game Card 2 -->
-            <div class="game-card live-game">
-              <div class="game-header">
-                <div class="game-info">
-                  <h4 class="game-title">Movie Poster Hunt</h4>
-                  <p class="game-creator">by <span class="username">@CinephileMode</span></p>
-                </div>
-                <div class="game-status">
-                  <span class="status-badge live">LIVE</span>
-                </div>
-              </div>
-              
-              <div class="game-stats">
-                <div class="stat">
-                  <span class="stat-icon">👥</span>
-                  <span class="stat-value">8 players</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">⏰</span>
-                  <span class="stat-value">12min left</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">🏆</span>
-                  <span class="stat-value">180 pts</span>
-                </div>
-              </div>
-              
-              <div class="current-challenge">
-                <p class="challenge-label">Current Challenge:</p>
-                <p class="challenge-text">"2000s action movie poster with explosions in the background"</p>
-              </div>
-              
-              <button class="btn btn-primary btn-md game-join-btn">🚀 Join Now</button>
-            </div>
-
-            <!-- Live Game Card 3 -->
-            <a href="event-details.html?id=urban-architecture" class="game-card live-game clickable-card">
-              <div class="game-header">
-                <div class="game-info">
-                  <h4 class="game-title">Urban Architecture Challenge</h4>
-                  <p class="game-creator">by <span class="username">@ArchHunter</span></p>
-                </div>
-                <div class="game-status">
-                  <span class="status-badge live">LIVE</span>
-                </div>
-              </div>
-              
-              <div class="game-stats">
-                <div class="stat">
-                  <span class="stat-icon">👥</span>
-                  <span class="stat-value">127 players</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">⏰</span>
-                  <span class="stat-value">2h 15min left</span>
-                </div>
-                <div class="stat">
-                  <span class="stat-icon">🏆</span>
-                  <span class="stat-value">500 pts</span>
-                </div>
-              </div>
-              
-              <div class="current-challenge">
-                <p class="challenge-label">Current Challenge:</p>
-                <p class="challenge-text">"Find Art Deco facades and modern glass structures in city environments"</p>
-              </div>
-              
-              <div class="card-overlay">
-                <span class="overlay-text">Click to view details</span>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <!-- Upcoming Events Section -->
-        <section class="content-section">
-          <div class="section-header">
-            <h3 class="section-title">📅 Upcoming Events</h3>
-            <a href="#" class="section-link">View all</a>
-          </div>
-          
-          <div class="upcoming-list">
-            <div class="upcoming-item">
-              <div class="upcoming-time">
-                <span class="time-value">2h</span>
-                <span class="time-label">from now</span>
-              </div>
-              <div class="upcoming-info">
-                <h4 class="upcoming-title">Anime Hunt Championship</h4>
-                <p class="upcoming-creator">by @AnimeExpert • Expected 25+ players</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Set Reminder</button>
-            </div>
-            
-            <div class="upcoming-item">
-              <div class="upcoming-time">
-                <span class="time-value">1d</span>
-                <span class="time-label">from now</span>
-              </div>
-              <div class="upcoming-info">
-                <h4 class="upcoming-title">Vintage Car Show Hunt</h4>
-                <p class="upcoming-creator">by @ClassicCars • Expected 15+ players</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Set Reminder</button>
-            </div>
-            
-            <div class="upcoming-item">
-              <div class="upcoming-time">
-                <span class="time-value">2d</span>
-                <span class="time-label">from now</span>
-              </div>
-              <div class="upcoming-info">
-                <h4 class="upcoming-title">Food Photography Hunt</h4>
-                <p class="upcoming-creator">by @FoodieHunter • Expected 30+ players</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Set Reminder</button>
+            <!-- Loading skeleton (will be replaced by actual games) -->
+            <div class="loading-placeholder">
+              <div class="reddit-skeleton reddit-skeleton-card"></div>
             </div>
           </div>
         </section>
 
-        <!-- Leaderboard Section -->
-        <section class="content-section">
-          <div class="section-header">
-            <h3 class="section-title">🏆 Top Hunters</h3>
-            <a href="#" class="section-link">View full leaderboard</a>
-          </div>
+        <!-- Two Column Layout: Upcoming Events + Leaderboard -->
+        <div class="content-columns reddit-grid reddit-grid-cols-2 reddit-gap-24">
+          <!-- Upcoming Events -->
+          <section class="upcoming-section">
+            <div class="section-header reddit-mb-16">
+              <h3 class="section-title reddit-text-title">
+                <span class="section-icon">📅</span>
+                Upcoming Events
+              </h3>
+            </div>
+
+            <div class="upcoming-list reddit-card reddit-p-16" id="upcomingList">
+              <!-- Empty state -->
+              <div class="empty-state-small" id="noUpcomingMessage" style="display: none;">
+                <p class="reddit-text-body reddit-text-secondary reddit-text-center">
+                  No upcoming events scheduled yet.
+                </p>
+              </div>
+
+              <!-- Loading placeholder -->
+              <div class="loading-placeholder">
+                <div class="reddit-skeleton reddit-skeleton-text"></div>
+                <div class="reddit-skeleton reddit-skeleton-text" style="width: 80%;"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Leaderboard -->
+          <section class="leaderboard-section">
+            <div class="section-header reddit-mb-16">
+              <h3 class="section-title reddit-text-title">
+                <span class="section-icon">🏆</span>
+                Top Hunters
+              </h3>
+            </div>
+
+            <div class="leaderboard-card reddit-card reddit-p-16" id="leaderboard">
+              <!-- Empty state -->
+              <div class="empty-state-small" id="noLeaderboardMessage" style="display: none;">
+                <p class="reddit-text-body reddit-text-secondary reddit-text-center">
+                  Leaderboard will appear once games are played.
+                </p>
+              </div>
+
+              <!-- Loading placeholder -->
+              <div class="loading-placeholder">
+                <div class="reddit-skeleton reddit-skeleton-text"></div>
+                <div class="reddit-skeleton reddit-skeleton-text" style="width: 90%;"></div>
+                <div class="reddit-skeleton reddit-skeleton-text" style="width: 85%;"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works reddit-card reddit-p-24 reddit-mt-24">
+          <h3 class="section-title reddit-text-title reddit-mb-16 reddit-text-center">How PicTact Works</h3>
           
-          <div class="leaderboard">
-            <div class="leaderboard-item rank-1">
-              <div class="rank-medal">🥇</div>
-              <div class="user-info">
-                <span class="username">@SpeedHunter</span>
-                <span class="user-stats">12 wins • 89% accuracy</span>
-              </div>
-              <div class="points">2,450 pts</div>
+          <div class="steps-grid reddit-grid reddit-grid-cols-4 reddit-gap-16">
+            <div class="step-card reddit-text-center">
+              <div class="step-icon reddit-text-display reddit-mb-8">🎪</div>
+              <h4 class="step-title reddit-text-body-strong reddit-mb-4">1. Join Event</h4>
+              <p class="step-description reddit-text-caption reddit-text-secondary">
+                Browse live challenges and join events that interest you
+              </p>
             </div>
-            
-            <div class="leaderboard-item rank-2">
-              <div class="rank-medal">🥈</div>
-              <div class="user-info">
-                <span class="username">@ImagePro</span>
-                <span class="user-stats">8 wins • 92% accuracy</span>
-              </div>
-              <div class="points">2,190 pts</div>
+
+            <div class="step-card reddit-text-center">
+              <div class="step-icon reddit-text-display reddit-mb-8">🎯</div>
+              <h4 class="step-title reddit-text-body-strong reddit-mb-4">2. Get Challenge</h4>
+              <p class="step-description reddit-text-caption reddit-text-secondary">
+                Receive specific image prompts to find and photograph
+              </p>
             </div>
-            
-            <div class="leaderboard-item rank-3">
-              <div class="rank-medal">🥉</div>
-              <div class="user-info">
-                <span class="username">@QuickFind</span>
-                <span class="user-stats">10 wins • 85% accuracy</span>
-              </div>
-              <div class="points">1,870 pts</div>
+
+            <div class="step-card reddit-text-center">
+              <div class="step-icon reddit-text-display reddit-mb-8">📸</div>
+              <h4 class="step-title reddit-text-body-strong reddit-mb-4">3. Hunt & Submit</h4>
+              <p class="step-description reddit-text-caption reddit-text-secondary">
+                Race to find the item and submit your photo before time runs out
+              </p>
             </div>
-            
-            <div class="leaderboard-item">
-              <div class="rank-number">4</div>
-              <div class="user-info">
-                <span class="username">@RetroGamer</span>
-                <span class="user-stats">6 wins • 88% accuracy</span>
-              </div>
-              <div class="points">1,650 pts</div>
-            </div>
-            
-            <div class="leaderboard-item">
-              <div class="rank-number">5</div>
-              <div class="user-info">
-                <span class="username">@CinephileMode</span>
-                <span class="user-stats">7 wins • 81% accuracy</span>
-              </div>
-              <div class="points">1,480 pts</div>
+
+            <div class="step-card reddit-text-center">
+              <div class="step-icon reddit-text-display reddit-mb-8">🏆</div>
+              <h4 class="step-title reddit-text-body-strong reddit-mb-4">4. Win Points</h4>
+              <p class="step-description reddit-text-caption reddit-text-secondary">
+                First valid submission wins! Earn points and climb the leaderboard
+              </p>
             </div>
           </div>
         </section>
+
+        <!-- Footer Info -->
+        <footer class="app-footer reddit-mt-32 reddit-p-16 reddit-text-center">
+          <p class="reddit-text-caption reddit-text-secondary">
+            PicTact is a Reddit Devvit app • Built for competitive image hunters • 
+            <a href="https://github.com/FouadABT/pictact" class="reddit-link" target="_blank">View on GitHub</a>
+          </p>
+        </footer>
       </main>
     </div>
-    <script type="module" src="main.ts"></script>
-  </body>
-</html>
+
+    <!-- Scripts -->
+    <script type="module" src="main.ts"></script>div></div>p>span></div>p>h2>""

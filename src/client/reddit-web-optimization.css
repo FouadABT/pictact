@@ -1,0 +1,642 @@
+/**
+ * Reddit Web Interface Optimization Styles
+ * Optimizes PicTact for Reddit web browser interface
+ * Requirements: 10.1, 10.4
+ */
+
+/* ====================================== */
+/*    REDDIT WEB BROWSER OPTIMIZATIONS   */
+/* ====================================== */
+
+/* Web browser specific optimizations */
+.reddit-web-browser {
+  /* Enhanced typography for desktop screens */
+  --web-font-scale: 1.1;
+  --web-line-height: 1.6;
+  --web-letter-spacing: 0.01em;
+  
+  /* Optimized spacing for larger screens */
+  --web-content-max-width: 1400px;
+  --web-sidebar-width: 320px;
+  --web-header-height: 64px;
+  
+  /* Enhanced shadows for depth */
+  --web-shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --web-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --web-shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.16);
+  
+  /* Smooth transitions for desktop interactions */
+  --web-transition-fast: 0.15s ease;
+  --web-transition-medium: 0.25s ease;
+  --web-transition-slow: 0.35s ease;
+}
+
+/* Reddit frame specific optimizations */
+.reddit-web-frame {
+  /* Adjust for Reddit frame constraints */
+  padding: var(--reddit-frame-padding, 8px);
+  max-width: var(--reddit-frame-width, 100%);
+  max-height: var(--reddit-frame-height, 100vh);
+  overflow: hidden;
+}
+
+/* High DPI display optimizations */
+.high-dpi {
+  /* Sharper borders and shadows */
+  --border-width: 0.5px;
+  --shadow-blur-radius: 0.5px;
+}
+
+/* Hover-enabled devices */
+.has-hover .game-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--web-shadow-strong);
+  transition: all var(--web-transition-medium);
+}
+
+.has-hover .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--web-shadow-medium);
+  transition: all var(--web-transition-fast);
+}
+
+.has-hover .leaderboard-item:hover {
+  transform: translateX(8px);
+  background-color: var(--reddit-neutral-background-hover);
+  transition: all var(--web-transition-fast);
+}
+
+/* ====================================== */
+/*       WEB ACCESSIBILITY ENHANCEMENTS  */
+/* ====================================== */
+
+/* Keyboard navigation enhancements */
+.keyboard-navigation *:focus {
+  outline: 3px solid var(--reddit-interactive-background);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.keyboard-navigation .game-card:focus {
+  outline: 3px solid var(--reddit-interactive-background);
+  outline-offset: 4px;
+  transform: scale(1.02);
+}
+
+/* High contrast mode support */
+.high-contrast {
+  --reddit-neutral-content: #000000;
+  --reddit-neutral-content-weak: #333333;
+  --reddit-neutral-border: #000000;
+  --reddit-interactive-background: #0066cc;
+  --reddit-canvas: #ffffff;
+  --reddit-canvas-secondary: #f5f5f5;
+}
+
+[data-theme="dark"].high-contrast {
+  --reddit-neutral-content: #ffffff;
+  --reddit-neutral-content-weak: #cccccc;
+  --reddit-neutral-border: #ffffff;
+  --reddit-interactive-background: #66aaff;
+  --reddit-canvas: #000000;
+  --reddit-canvas-secondary: #1a1a1a;
+}
+
+/* Screen reader optimizations */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus management for modals */
+.modal.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--reddit-canvas);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--web-shadow-strong);
+}
+
+/* ====================================== */
+/*       WEB PERFORMANCE OPTIMIZATIONS   */
+/* ====================================== */
+
+/* Optimized image loading */
+img[data-src] {
+  background-color: var(--reddit-canvas-secondary);
+  background-image: linear-gradient(
+    90deg,
+    var(--reddit-canvas-secondary) 0%,
+    var(--reddit-neutral-background) 50%,
+    var(--reddit-canvas-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Lazy loading placeholder */
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--reddit-canvas-secondary);
+  color: var(--reddit-neutral-content-weak);
+  font-size: 2rem;
+  min-height: 200px;
+  border-radius: 8px;
+}
+
+/* Optimized scrolling */
+.scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hardware acceleration for animations */
+.animated-element {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* ====================================== */
+/*       DRAG AND DROP ENHANCEMENTS      */
+/* ====================================== */
+
+.upload-area,
+.file-drop-zone {
+  position: relative;
+  transition: all var(--web-transition-medium);
+}
+
+.upload-area.drag-over,
+.file-drop-zone.drag-over {
+  border-color: var(--reddit-interactive-background);
+  background-color: var(--reddit-interactive-background-weak);
+  transform: scale(1.02);
+}
+
+.upload-area::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px dashed var(--reddit-interactive-background);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--web-transition-fast);
+  pointer-events: none;
+}
+
+.upload-area.drag-over::after {
+  opacity: 1;
+}
+
+/* ====================================== */
+/*       CONTEXT MENU ENHANCEMENTS       */
+/* ====================================== */
+
+.allow-context-menu {
+  /* Allow right-click context menu on specific elements */
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Custom context menu styling */
+.context-menu {
+  position: fixed;
+  background-color: var(--reddit-canvas);
+  border: 1px solid var(--reddit-neutral-border);
+  border-radius: 8px;
+  box-shadow: var(--web-shadow-strong);
+  padding: 4px 0;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.context-menu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--reddit-neutral-content);
+  transition: background-color var(--web-transition-fast);
+}
+
+.context-menu-item:hover {
+  background-color: var(--reddit-neutral-background-hover);
+}
+
+.context-menu-separator {
+  height: 1px;
+  background-color: var(--reddit-neutral-border);
+  margin: 4px 0;
+}
+
+/* ====================================== */
+/*       KEYBOARD SHORTCUT INDICATORS     */
+/* ====================================== */
+
+.keyboard-shortcut {
+  font-size: 0.75rem;
+  color: var(--reddit-neutral-content-weak);
+  background-color: var(--reddit-canvas-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--reddit-font-mono, monospace);
+  margin-left: auto;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--reddit-neutral-content);
+  color: var(--reddit-canvas);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--web-transition-fast);
+  z-index: 1000;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* ====================================== */
+/*       RESPONSIVE WEB OPTIMIZATIONS    */
+/* ====================================== */
+
+/* Large desktop screens (1200px+) */
+@media (min-width: 1200px) {
+  .reddit-web-browser {
+    --web-content-max-width: 1600px;
+    --web-sidebar-width: 380px;
+  }
+  
+  .main-content {
+    max-width: var(--web-content-max-width);
+  }
+  
+  .games-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+  
+  .hero-title {
+    font-size: calc(2.5rem * var(--web-font-scale));
+  }
+  
+  .section-title {
+    font-size: calc(1.5rem * var(--web-font-scale));
+  }
+}
+
+/* Ultra-wide screens (1600px+) */
+@media (min-width: 1600px) {
+  .reddit-web-browser {
+    --web-content-max-width: 1800px;
+  }
+  
+  .games-grid {
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  }
+  
+  .game-container {
+    grid-template-columns: 1fr 400px;
+  }
+}
+
+/* High resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .high-dpi img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  .high-dpi .icon {
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+}
+
+/* ====================================== */
+/*       PRINT OPTIMIZATIONS             */
+/* ====================================== */
+
+@media print {
+  .reddit-web-browser {
+    --reddit-canvas: #ffffff;
+    --reddit-neutral-content: #000000;
+    --reddit-neutral-border: #cccccc;
+  }
+  
+  .main-header,
+  .live-feed,
+  .btn,
+  .hero-section {
+    display: none !important;
+  }
+  
+  .game-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #cccccc;
+  }
+  
+  .main-content {
+    padding: 0;
+    max-width: none;
+  }
+  
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ====================================== */
+/*       REDUCED MOTION SUPPORT          */
+/* ====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reddit-web-browser * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .has-hover .game-card:hover {
+    transform: none;
+  }
+  
+  .has-hover .btn:hover {
+    transform: none;
+  }
+  
+  .loading-shimmer {
+    animation: none;
+    background: var(--reddit-canvas-secondary);
+  }
+}
+
+/* ====================================== */
+/*       REDDIT FRAME SPECIFIC STYLES    */
+/* ====================================== */
+
+.reddit-web-frame .main-header {
+  position: static;
+  box-shadow: none;
+  border-bottom: 1px solid var(--reddit-neutral-border);
+}
+
+.reddit-web-frame .hero-section {
+  padding: 1.5rem 0;
+}
+
+.reddit-web-frame .main-content {
+  padding: 1rem 0;
+}
+
+.reddit-web-frame .live-feed {
+  position: static;
+  max-height: 400px;
+}
+
+/* Reddit frame focus states */
+.reddit-frame-focused {
+  outline: 2px solid var(--reddit-interactive-background);
+  outline-offset: -2px;
+}
+
+/* Reddit frame communication indicators */
+.reddit-frame-loading {
+  position: relative;
+}
+
+.reddit-frame-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--reddit-interactive-background),
+    transparent
+  );
+  animation: loading-bar 2s infinite;
+}
+
+@keyframes loading-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ====================================== */
+/*       PROGRESSIVE ENHANCEMENT         */
+/* ====================================== */
+
+/* Base styles for browsers without JavaScript */
+.no-js .reddit-web-browser {
+  /* Fallback styles */
+}
+
+/* Enhanced styles for modern browsers */
+.js .reddit-web-browser {
+  /* Progressive enhancement styles */
+}
+
+/* WebGL support enhancements */
+.webgl-supported .game-card {
+  /* Enhanced visual effects for WebGL-capable browsers */
+}
+
+/* Service Worker support */
+.sw-supported .offline-indicator {
+  display: block;
+}
+
+/* ====================================== */
+/*       PERFORMANCE MONITORING UI       */
+/* ====================================== */
+
+.performance-monitor {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: var(--reddit-canvas);
+  border: 1px solid var(--reddit-neutral-border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  z-index: 999;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.performance-metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.performance-value {
+  font-weight: bold;
+  color: var(--reddit-interactive-background);
+}
+
+/* Network status indicator */
+.network-status {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 999;
+}
+
+.network-status.online {
+  background-color: var(--reddit-success);
+  color: white;
+}
+
+.network-status.offline {
+  background-color: var(--reddit-danger);
+  color: white;
+}
+
+.network-status.slow {
+  background-color: var(--reddit-warning);
+  color: var(--reddit-neutral-content);
+}
+
+/* ====================================== */
+/*       SCROLL PROGRESS INDICATOR       */
+/* ====================================== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--reddit-interactive-background);
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+/* ====================================== */
+/*       UTILITY CLASSES FOR WEB         */
+/* ====================================== */
+
+.web-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.select-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* ====================================== */
+/*       BROWSER-SPECIFIC FIXES          */
+/* ====================================== */
+
+/* Chrome-specific optimizations */
+.chrome .reddit-web-browser {
+  /* Chrome-specific styles */
+}
+
+/* Firefox-specific optimizations */
+.firefox .reddit-web-browser {
+  /* Firefox-specific styles */
+}
+
+/* Safari-specific optimizations */
+.safari .reddit-web-browser {
+  /* Safari-specific styles */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Edge-specific optimizations */
+.edge .reddit-web-browser {
+  /* Edge-specific styles */
+}

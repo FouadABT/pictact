@@ -1,0 +1,702 @@
+/**
+ * Reddit Mobile App Integration Styles
+ * Optimizes PicTact for Reddit mobile app interface
+ * Requirements: 10.2, 10.4
+ */
+
+/* ====================================== */
+/*    REDDIT MOBILE APP OPTIMIZATIONS    */
+/* ====================================== */
+
+/* Mobile app specific optimizations */
+.reddit-mobile-app {
+  /* Enhanced touch interactions */
+  --mobile-touch-target: 44px;
+  --mobile-touch-feedback: 0.15s ease;
+  --mobile-safe-area-top: env(safe-area-inset-top, 0px);
+  --mobile-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  
+  /* Mobile app spacing */
+  --mobile-content-padding: 16px;
+  --mobile-section-gap: 12px;
+  --mobile-card-gap: 8px;
+  
+  /* Performance optimizations */
+  --mobile-animation-duration: 0.2s;
+  --mobile-transition-timing: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Android app specific styles */
+.reddit-android-app {
+  /* Material Design optimizations */
+  --mobile-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --mobile-elevation-2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --mobile-elevation-3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+/* iOS app specific styles */
+.reddit-ios-app {
+  /* iOS design optimizations */
+  --mobile-blur-backdrop: blur(20px) saturate(180%);
+  --mobile-ios-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ====================================== */
+/*       MOBILE SAFE AREA HANDLING       */
+/* ====================================== */
+
+.reddit-mobile-safe-top {
+  padding-top: max(var(--mobile-content-padding), var(--mobile-safe-area-top));
+}
+
+.reddit-mobile-safe-bottom {
+  padding-bottom: max(var(--mobile-content-padding), var(--mobile-safe-area-bottom));
+}
+
+/* Notch and dynamic island support */
+@supports (padding: max(0px)) {
+  .main-header {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .reddit-mobile-bottom-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ====================================== */
+/*       TOUCH INTERACTIONS               */
+/* ====================================== */
+
+/* Enhanced touch targets */
+.reddit-mobile-app .reddit-btn,
+.reddit-mobile-app .reddit-card-interactive,
+.reddit-mobile-app .game-card {
+  min-height: var(--mobile-touch-target);
+  min-width: var(--mobile-touch-target);
+}
+
+/* Touch feedback */
+.touch-active {
+  transform: scale(0.98);
+  opacity: 0.8;
+  transition: all var(--mobile-touch-feedback);
+}
+
+.reddit-btn.touch-active {
+  background-color: var(--reddit-interactive-background-hover);
+}
+
+.game-card.touch-active {
+  box-shadow: var(--mobile-elevation-1);
+}
+
+/* Prevent text selection on touch */
+.reddit-mobile-app .game-card,
+.reddit-mobile-app .reddit-btn,
+.reddit-mobile-app .leaderboard-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ====================================== */
+/*       GESTURE SUPPORT                  */
+/* ====================================== */
+
+/* Swipe indicators */
+.game-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::before {
+  content: '← Swipe to join';
+  position: absolute;
+  top: 50%;
+  right: -200px;
+  transform: translateY(-50%);
+  background-color: var(--reddit-success);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: right var(--mobile-animation-duration);
+  z-index: 1;
+}
+
+.game-card::after {
+  content: 'Swipe for details →';
+  position: absolute;
+  top: 50%;
+  left: -200px;
+  transform: translateY(-50%);
+  background-color: var(--reddit-interactive-background);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: left var(--mobile-animation-duration);
+  z-index: 1;
+}
+
+.game-card.swipe-hint-left::before {
+  right: 16px;
+}
+
+.game-card.swipe-hint-right::after {
+  left: 16px;
+}
+
+/* Pull-to-refresh indicator */
+.reddit-pull-refresh-indicator {
+  position: fixed;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: var(--reddit-interactive-background);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: var(--mobile-elevation-2);
+  z-index: 1000;
+  transition: all var(--mobile-animation-duration);
+  opacity: 0;
+}
+
+.pull-refresh-ready .reddit-pull-refresh-indicator {
+  background-color: var(--reddit-success);
+}
+
+.refreshing .reddit-pull-refresh-indicator {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* ====================================== */
+/*       MOBILE NAVIGATION                */
+/* ====================================== */
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  display: none;
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .header-actions > .reddit-btn:not(.mobile-menu-btn) {
+    display: none;
+  }
+}
+
+/* Mobile menu (bottom sheet) */
+.mobile-menu {
+  max-height: 60vh;
+}
+
+.mobile-menu-item {
+  display: block;
+  padding: 16px 0;
+  color: var(--reddit-neutral-content);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--reddit-neutral-border-weak);
+  transition: color var(--mobile-animation-duration);
+}
+
+.mobile-menu-item:hover,
+.mobile-menu-item:focus {
+  color: var(--reddit-interactive-background);
+}
+
+.mobile-menu-item:last-child {
+  border-bottom: none;
+}
+
+/* Bottom navigation */
+.reddit-mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--reddit-neutral-background);
+  border-top: 1px solid var(--reddit-neutral-border);
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 100;
+  backdrop-filter: var(--mobile-blur-backdrop);
+  -webkit-backdrop-filter: var(--mobile-blur-backdrop);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--reddit-neutral-content-weak);
+  transition: color var(--mobile-animation-duration);
+  min-width: var(--mobile-touch-target);
+  min-height: var(--mobile-touch-target);
+  justify-content: center;
+}
+
+.bottom-nav-item.active {
+  color: var(--reddit-interactive-background);
+}
+
+.bottom-nav-item:hover,
+.bottom-nav-item:focus {
+  color: var(--reddit-neutral-content);
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ====================================== */
+/*       BOTTOM SHEET COMPONENT          */
+/* ====================================== */
+
+.reddit-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--reddit-neutral-background);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.3s var(--mobile-transition-timing);
+  z-index: 1000;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.reddit-bottom-sheet.open {
+  transform: translateY(0);
+}
+
+.reddit-bottom-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background-color: var(--reddit-neutral-border-strong);
+  border-radius: 2px;
+  margin: 12px auto 8px;
+  cursor: grab;
+}
+
+.reddit-bottom-sheet-content {
+  padding: 0 20px 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 40px);
+}
+
+/* ====================================== */
+/*       MOBILE TOAST NOTIFICATIONS      */
+/* ====================================== */
+
+.reddit-mobile-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 16px;
+  right: 16px;
+  background-color: var(--reddit-neutral-content);
+  color: var(--reddit-neutral-background);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: var(--mobile-elevation-3);
+  transform: translateY(100px);
+  transition: transform 0.3s var(--mobile-transition-timing);
+  z-index: 1001;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.reddit-mobile-toast.show {
+  transform: translateY(0);
+}
+
+/* Success toast */
+.reddit-mobile-toast.success {
+  background-color: var(--reddit-success);
+}
+
+/* Error toast */
+.reddit-mobile-toast.error {
+  background-color: var(--reddit-danger);
+}
+
+/* Warning toast */
+.reddit-mobile-toast.warning {
+  background-color: var(--reddit-warning);
+  color: var(--reddit-neutral-content);
+}
+
+/* ====================================== */
+/*       MOBILE PERFORMANCE OPTIMIZATIONS */
+/* ====================================== */
+
+/* Low performance mode */
+.reddit-mobile-low-performance * {
+  animation-duration: 0.1s !important;
+  transition-duration: 0.1s !important;
+}
+
+.reddit-mobile-low-performance .reddit-shadow-lg,
+.reddit-mobile-low-performance .reddit-shadow-md {
+  box-shadow: var(--reddit-shadow-sm);
+}
+
+.reddit-mobile-low-performance .game-card:hover {
+  transform: none;
+}
+
+/* Low FPS mode */
+.low-fps .animated-element {
+  animation: none !important;
+}
+
+.low-fps .reddit-live-dot {
+  animation: none;
+  opacity: 1;
+}
+
+/* Save data mode */
+.save-data img {
+  filter: blur(1px);
+}
+
+.save-data .reddit-skeleton {
+  animation: none;
+  background: var(--reddit-canvas-secondary);
+}
+
+/* Offline mode */
+.offline .online-only {
+  display: none;
+}
+
+.offline::before {
+  content: 'Offline';
+  position: fixed;
+  top: var(--mobile-safe-area-top);
+  left: 0;
+  right: 0;
+  background-color: var(--reddit-warning);
+  color: var(--reddit-neutral-content);
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 1000;
+}
+
+/* ====================================== */
+/*       ORIENTATION HANDLING             */
+/* ====================================== */
+
+/* Portrait orientation */
+[data-orientation="portrait"] .games-grid {
+  grid-template-columns: 1fr;
+}
+
+[data-orientation="portrait"] .game-container {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+[data-orientation="portrait"] .live-feed {
+  position: static;
+  max-height: 300px;
+  order: -1;
+}
+
+/* Landscape orientation */
+[data-orientation="landscape"] .hero-section {
+  padding: 1rem 0;
+}
+
+[data-orientation="landscape"] .hero-title {
+  font-size: 1.5rem;
+}
+
+[data-orientation="landscape"] .main-content {
+  padding: 1rem;
+}
+
+/* ====================================== */
+/*       APP LIFECYCLE STATES             */
+/* ====================================== */
+
+/* App in background */
+.app-background * {
+  animation-play-state: paused !important;
+}
+
+.app-background .reddit-live-dot {
+  animation-play-state: paused;
+}
+
+.app-background .reddit-skeleton {
+  animation-play-state: paused;
+}
+
+/* ====================================== */
+/*       HAPTIC FEEDBACK INDICATORS       */
+/* ====================================== */
+
+.haptic-light {
+  animation: haptic-pulse-light 0.1s ease;
+}
+
+.haptic-medium {
+  animation: haptic-pulse-medium 0.15s ease;
+}
+
+.haptic-heavy {
+  animation: haptic-pulse-heavy 0.2s ease;
+}
+
+@keyframes haptic-pulse-light {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes haptic-pulse-medium {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes haptic-pulse-heavy {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ====================================== */
+/*       MOBILE ACCESSIBILITY             */
+/* ====================================== */
+
+/* Enhanced focus indicators for mobile */
+.reddit-mobile-app *:focus {
+  outline: 3px solid var(--reddit-interactive-background);
+  outline-offset: 2px;
+}
+
+/* Voice control indicators */
+.voice-control-active {
+  border: 2px dashed var(--reddit-interactive-background);
+  animation: voice-pulse 1s infinite;
+}
+
+@keyframes voice-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Screen reader optimizations for mobile */
+.reddit-mobile-app .sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ====================================== */
+/*       MOBILE FORM OPTIMIZATIONS       */
+/* ====================================== */
+
+@media (max-width: 768px) {
+  /* Prevent zoom on input focus (iOS) */
+  .reddit-input,
+  .reddit-textarea,
+  .reddit-select {
+    font-size: 16px !important;
+  }
+  
+  /* Enhanced mobile form styling */
+  .reddit-input:focus,
+  .reddit-textarea:focus {
+    transform: scale(1.02);
+    transition: transform var(--mobile-animation-duration);
+  }
+  
+  /* Mobile-optimized file upload */
+  .reddit-file-upload {
+    padding: 24px 16px;
+    border: 2px dashed var(--reddit-neutral-border);
+    border-radius: 12px;
+    text-align: center;
+    background-color: var(--reddit-canvas-secondary);
+  }
+  
+  .reddit-file-upload.drag-over {
+    border-color: var(--reddit-interactive-background);
+    background-color: var(--reddit-interactive-background-weak);
+    transform: scale(1.02);
+  }
+}
+
+/* ====================================== */
+/*       MOBILE LOADING STATES           */
+/* ====================================== */
+
+.reddit-mobile-skeleton {
+  background: linear-gradient(90deg, 
+    var(--reddit-canvas-tertiary) 25%, 
+    var(--reddit-neutral-background-hover) 50%, 
+    var(--reddit-canvas-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: mobile-skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes mobile-skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Mobile loading spinner */
+.reddit-mobile-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--reddit-neutral-border);
+  border-top: 2px solid var(--reddit-interactive-background);
+  border-radius: 50%;
+  animation: mobile-spin 1s linear infinite;
+}
+
+@keyframes mobile-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ====================================== */
+/*       MOBILE RESPONSIVE BREAKPOINTS   */
+/* ====================================== */
+
+/* Small mobile devices (320px - 480px) */
+@media (max-width: 480px) {
+  .reddit-mobile-app {
+    --mobile-content-padding: 12px;
+    --mobile-section-gap: 8px;
+    --mobile-card-gap: 6px;
+  }
+  
+  .reddit-mobile-bottom-nav {
+    padding: 6px 0;
+  }
+  
+  .bottom-nav-item {
+    padding: 6px 8px;
+  }
+  
+  .nav-icon {
+    font-size: 18px;
+  }
+  
+  .nav-label {
+    font-size: 9px;
+  }
+}
+
+/* Large mobile devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .reddit-mobile-bottom-nav {
+    padding: 10px 0;
+  }
+}
+
+/* ====================================== */
+/*       REDUCED MOTION SUPPORT          */
+/* ====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reddit-mobile-app * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .touch-active {
+    transform: none;
+  }
+  
+  .reddit-mobile-skeleton {
+    animation: none;
+    background: var(--reddit-canvas-tertiary);
+  }
+  
+  .reddit-pull-refresh-indicator {
+    animation: none;
+  }
+}
+
+/* ====================================== */
+/*       HIGH CONTRAST SUPPORT           */
+/* ====================================== */
+
+@media (prefers-contrast: high) {
+  .reddit-mobile-app .reddit-btn {
+    border-width: 2px;
+    font-weight: 700;
+  }
+  
+  .reddit-mobile-app .game-card {
+    border-width: 2px;
+  }
+  
+  .reddit-mobile-bottom-nav {
+    border-top-width: 2px;
+  }
+  
+  .bottom-nav-item.active {
+    background-color: var(--reddit-interactive-background);
+    color: var(--reddit-interactive-content);
+    border-radius: 8px;
+  }
+}

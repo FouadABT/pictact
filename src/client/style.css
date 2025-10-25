@@ -2,68 +2,72 @@
 /*           PICTACT DESIGN SYSTEM       */
 /* ====================================== */
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+/* Import Reddit Design System */
+@import url('./reddit-design-system.css');
+@import url('./reddit-mobile-optimization.css');
+
+/* Import Reddit Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap');
 
 /* ====================================== */
 /*         CSS CUSTOM PROPERTIES         */
 /* ====================================== */
 
 :root {
-  /* ===== LIGHT MODE COLORS ===== */
+  /* ===== REDDIT DESIGN SYSTEM INTEGRATION ===== */
   
-  /* Primary Brand Colors */
-  --primary-orange: #FF6B35;
-  --primary-orange-light: #FF8A65;
-  --primary-orange-dark: #E5511E;
-  --primary-orange-hover: #FF5722;
+  /* Primary Brand Colors - Reddit Orange */
+  --primary-orange: var(--reddit-orange);
+  --primary-orange-light: var(--reddit-orange-light);
+  --primary-orange-dark: var(--reddit-orange-dark);
+  --primary-orange-hover: var(--reddit-orange-hover);
   
-  /* Secondary Colors */
-  --secondary-blue: #2196F3;
+  /* Secondary Colors - Reddit Blue */
+  --secondary-blue: var(--reddit-blue);
   --secondary-purple: #9C27B0;
   --secondary-teal: #009688;
   
-  /* Status Colors */
-  --success-green: #4CAF50;
+  /* Status Colors - Reddit Semantic Colors */
+  --success-green: var(--reddit-success);
   --success-green-light: #81C784;
   --success-green-dark: #388E3C;
   
-  --warning-yellow: #FF9800;
+  --warning-yellow: var(--reddit-warning);
   --warning-yellow-light: #FFB74D;
   --warning-yellow-dark: #F57C00;
   
-  --danger-red: #F44336;
+  --danger-red: var(--reddit-danger);
   --danger-red-light: #EF5350;
   --danger-red-dark: #D32F2F;
   
-  --info-blue: #2196F3;
+  --info-blue: var(--reddit-info);
   --info-blue-light: #64B5F6;
   --info-blue-dark: #1976D2;
   
-  /* Neutral Colors - Light Mode */
-  --background-primary: #FFFFFF;
-  --background-secondary: #F8F9FA;
-  --background-tertiary: #F1F3F4;
-  --background-elevated: #FFFFFF;
+  /* Neutral Colors - Reddit Design System */
+  --background-primary: var(--reddit-canvas);
+  --background-secondary: var(--reddit-canvas-secondary);
+  --background-tertiary: var(--reddit-canvas-tertiary);
+  --background-elevated: var(--reddit-neutral-background);
   
-  --surface-primary: #FFFFFF;
-  --surface-secondary: #F5F5F5;
-  --surface-tertiary: #EEEEEE;
+  --surface-primary: var(--reddit-neutral-background);
+  --surface-secondary: var(--reddit-neutral-background-hover);
+  --surface-tertiary: var(--reddit-canvas-tertiary);
   
-  --text-primary: #1A1A1A;
-  --text-secondary: #616161;
-  --text-tertiary: #9E9E9E;
-  --text-disabled: #BDBDBD;
-  --text-inverse: #FFFFFF;
+  --text-primary: var(--reddit-neutral-content);
+  --text-secondary: var(--reddit-neutral-content-weak);
+  --text-tertiary: var(--reddit-neutral-content-weak);
+  --text-disabled: var(--reddit-interactive-background-disabled);
+  --text-inverse: var(--reddit-interactive-content);
   
-  --border-primary: #E0E0E0;
-  --border-secondary: #EEEEEE;
-  --border-focus: var(--primary-orange);
+  --border-primary: var(--reddit-neutral-border);
+  --border-secondary: var(--reddit-neutral-border-weak);
+  --border-focus: var(--reddit-interactive-background);
   
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  --shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --shadow-small: var(--reddit-shadow-xs);
+  --shadow-medium: var(--reddit-shadow-sm);
+  --shadow-large: var(--reddit-shadow-md);
   
   /* Game Specific Colors */
   --medal-gold: #FFD700;
@@ -105,40 +109,40 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--reddit-font-family);
   font-weight: 400;
   color: var(--text-primary);
   background-color: var(--background-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Heading Styles */
+/* Heading Styles - Reddit Typography */
 .heading-xl {
-  font-family: 'Inter', sans-serif;
-  font-size: 2rem;           /* 32px */
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-family: var(--reddit-font-family);
+  font-size: 28px;           /* Reddit display size */
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.5px;
   color: var(--text-primary);
   margin: 0;
 }
 
 .heading-lg {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.75rem;        /* 28px */
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  font-family: var(--reddit-font-family);
+  font-size: 22px;           /* Reddit headline size */
+  font-weight: 600;
+  line-height: 26px;
+  letter-spacing: -0.25px;
   color: var(--text-primary);
   margin: 0;
 }
 
 .heading-md {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;         /* 24px */
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  font-family: var(--reddit-font-family);
+  font-size: 18px;           /* Reddit title size */
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0;
   color: var(--text-primary);
   margin: 0;
 }
@@ -966,12 +970,13 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-family: inherit;
-  font-weight: 600;
+  gap: var(--reddit-space-8);
+  font-family: var(--reddit-font-family);
+  font-weight: 700;
+  font-size: 14px;
   text-decoration: none;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--reddit-radius-full);
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
@@ -985,7 +990,7 @@ body {
 }
 
 .btn:focus {
-  outline: 2px solid var(--primary-orange);
+  outline: 2px solid var(--reddit-interactive-background);
   outline-offset: 2px;
 }
 
@@ -994,63 +999,57 @@ body {
   opacity: 0.6;
 }
 
-/* Button Sizes */
+/* Button Sizes - Reddit Design System */
 .btn-sm {
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
-  height: 2rem;
+  font-size: 12px;
+  padding: var(--reddit-space-6) var(--reddit-space-12);
+  height: 32px;
 }
 
 .btn-md {
-  font-size: 1rem;
-  padding: 0.75rem 1.5rem;
-  height: 2.5rem;
+  font-size: 14px;
+  padding: var(--reddit-space-8) var(--reddit-space-16);
+  height: 40px;
 }
 
 .btn-lg {
-  font-size: 1.125rem;
-  padding: 1rem 2rem;
-  height: 3rem;
+  font-size: 16px;
+  padding: var(--reddit-space-12) var(--reddit-space-24);
+  height: 48px;
 }
 
-/* Button Variants */
+/* Button Variants - Reddit Design System */
 .btn-primary {
-  background-color: var(--primary-orange);
-  color: white;
-  border: 2px solid var(--primary-orange);
+  background-color: var(--reddit-interactive-background);
+  color: var(--reddit-interactive-content);
+  border-color: var(--reddit-interactive-background);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-orange-hover);
-  border-color: var(--primary-orange-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-small);
+  background-color: var(--reddit-interactive-background-hover);
+  border-color: var(--reddit-interactive-background-hover);
 }
 
 .btn-secondary {
-  background-color: var(--surface-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--border-primary);
+  background-color: var(--reddit-neutral-background);
+  color: var(--reddit-neutral-content);
+  border-color: var(--reddit-neutral-border);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--surface-tertiary);
-  border-color: var(--primary-orange-light);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-small);
+  background-color: var(--reddit-neutral-background-hover);
+  border-color: var(--reddit-neutral-border-strong);
 }
 
 .btn-outline {
   background-color: transparent;
-  color: var(--primary-orange);
-  border: 2px solid var(--primary-orange);
+  color: var(--reddit-interactive-background);
+  border-color: var(--reddit-interactive-background);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background-color: var(--primary-orange);
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-small);
+  background-color: var(--reddit-interactive-background);
+  color: var(--reddit-interactive-content);
 }
 
 /* ====================================== */
@@ -3695,5 +3694,730 @@ body {
   
   .participation-steps {
     gap: 1rem;
+  }
+}
+
+/* ====================================== */
+/*           EMPTY STATES                 */
+/* ====================================== */
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state .empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.empty-state .empty-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.empty-state .empty-description {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state-small {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-secondary);
+}
+
+.empty-state-small .empty-text {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Loading placeholders */
+.loading-placeholder {
+  padding: 1rem;
+}
+
+.reddit-skeleton {
+  background: linear-gradient(90deg, var(--background-secondary) 25%, var(--background-tertiary) 50%, var(--background-secondary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+.reddit-skeleton-card {
+  height: 200px;
+  width: 100%;
+}
+
+.reddit-skeleton-list {
+  height: 60px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ====================================== */
+/*        IMPROVED WYSIWYG EDITOR        */
+/* ====================================== */
+
+.wysiwyg-container {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--background-primary);
+  transition: border-color 0.2s ease;
+}
+
+.wysiwyg-container:focus-within {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px var(--primary-orange-light);
+}
+
+.wysiwyg-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.toolbar-btn:hover {
+  background: var(--background-tertiary);
+  color: var(--text-primary);
+}
+
+.toolbar-btn.active {
+  background: var(--primary-orange);
+  color: white;
+}
+
+.toolbar-btn:focus {
+  outline: 2px solid var(--primary-orange);
+  outline-offset: 2px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+  margin: 0 4px;
+}
+
+.wysiwyg-editor {
+  min-height: 120px;
+  max-height: 300px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--background-primary);
+  border: none;
+  outline: none;
+  overflow-y: auto;
+  word-wrap: break-word;
+  position: relative;
+}
+
+.wysiwyg-editor.empty:not(.focused)::before {
+  content: attr(data-placeholder);
+  color: var(--text-tertiary);
+  font-style: italic;
+  pointer-events: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 1;
+}
+
+.wysiwyg-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-tertiary);
+  font-style: italic;
+  pointer-events: none;
+}
+
+.wysiwyg-editor:focus::before {
+  display: none;
+}
+
+.wysiwyg-editor:focus {
+  background: var(--background-primary);
+}
+
+/* WYSIWYG content styling */
+.wysiwyg-editor p {
+  margin: 0 0 8px 0;
+}
+
+.wysiwyg-editor p:last-child {
+  margin-bottom: 0;
+}
+
+.wysiwyg-editor strong {
+  font-weight: 600;
+}
+
+.wysiwyg-editor em {
+  font-style: italic;
+}
+
+.wysiwyg-editor u {
+  text-decoration: underline;
+}
+
+.wysiwyg-editor ul,
+.wysiwyg-editor ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.wysiwyg-editor li {
+  margin: 4px 0;
+}
+
+.wysiwyg-editor a {
+  color: var(--primary-orange);
+  text-decoration: underline;
+}
+
+.wysiwyg-editor a:hover {
+  color: var(--primary-orange-dark);
+}
+
+/* ====================================== */
+/*        RESPONSIVE IMPROVEMENTS         */
+/* ====================================== */
+
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+  
+  .empty-state .empty-icon {
+    font-size: 3rem;
+  }
+  
+  .empty-state .empty-title {
+    font-size: 1.25rem;
+  }
+  
+  .wysiwyg-toolbar {
+    padding: 6px 8px;
+  }
+  
+  .toolbar-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .wysiwyg-editor {
+    padding: 12px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* ====================================== */
+/*         ACCESSIBILITY IMPROVEMENTS     */
+/* ====================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reddit-skeleton {
+    animation: none;
+  }
+  
+  .wysiwyg-container,
+  .toolbar-btn {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .wysiwyg-container {
+    border-width: 3px;
+  }
+  
+  .toolbar-btn {
+    border: 1px solid var(--border-color);
+  }
+  
+  .toolbar-btn.active {
+    border-color: var(--primary-orange-dark);
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+.wysiwyg-editor:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--primary-orange);
+}
+
+/* Screen reader improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}/* ======
+================================ */
+/*        CUSTOM NOTIFICATIONS           */
+/* ====================================== */
+
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  max-width: 400px;
+  background: var(--background-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.3s ease-out;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.notification-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.notification-message {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.notification-close:hover {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+}
+
+.notification-error {
+  border-color: var(--danger-red);
+  background: var(--background-primary);
+}
+
+.notification-success {
+  border-color: var(--success-green);
+  background: var(--background-primary);
+}
+
+.notification-info {
+  border-color: var(--info-blue);
+  background: var(--background-primary);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile responsive notifications */
+@media (max-width: 768px) {
+  .custom-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+  
+  .notification-content {
+    padding: 12px;
+  }
+  
+  .notification-message {
+    font-size: 13px;
+  }
+}/* =====
+================================= */
+/*        MOBILE GESTURE STYLES          */
+/* ====================================== */
+
+.touch-active {
+  transform: scale(0.98);
+  opacity: 0.8;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.pull-to-refresh-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--primary-orange);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 9999;
+  display: none;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ====================================== */
+/*        WYSIWYG EDITOR FIXES           */
+/* ====================================== */
+
+.wysiwyg-editor {
+  position: relative;
+  min-height: 120px;
+  max-height: 300px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--background-primary);
+  border: none;
+  outline: none;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.wysiwyg-editor[contenteditable="true"]:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+  font-style: italic;
+  pointer-events: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.wysiwyg-editor:focus::before {
+  display: none;
+}
+
+.wysiwyg-editor:not(:empty)::before {
+  display: none;
+}
+
+/* Toolbar button active states */
+.toolbar-btn.active {
+  background: var(--primary-orange) !important;
+  color: white !important;
+}
+
+.toolbar-btn:hover {
+  background: var(--background-tertiary);
+}
+
+/* Better focus styles */
+.wysiwyg-container:focus-within {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
+}
+
+/* ====================================== */
+/*    INDEX PAGE SPECIFIC STYLES          */
+/* ====================================== */
+
+/* Hero Section Enhancements */
+.hero-stats {
+  display: flex;
+  gap: var(--reddit-space-24);
+  margin-top: var(--reddit-space-16);
+}
+
+.hero-stat {
+  text-align: center;
+  flex: 1;
+}
+
+.hero-stat .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+}
+
+.hero-stat .stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: var(--reddit-space-4);
+}
+
+/* Content Columns Layout */
+.content-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--reddit-space-24);
+  margin-bottom: var(--reddit-space-24);
+}
+
+@media (max-width: 768px) {
+  .content-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Upcoming Events List */
+.upcoming-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--reddit-space-12);
+}
+
+.upcoming-item {
+  display: flex;
+  align-items: center;
+  gap: var(--reddit-space-12);
+  padding: var(--reddit-space-12);
+  background: var(--background-secondary);
+  border-radius: var(--reddit-radius-md);
+  transition: all 0.2s ease;
+}
+
+.upcoming-item:hover {
+  background: var(--surface-secondary);
+  transform: translateX(4px);
+}
+
+.upcoming-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+  padding: var(--reddit-space-8);
+  background: var(--primary-orange);
+  color: white;
+  border-radius: var(--reddit-radius-sm);
+}
+
+.upcoming-time .time-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.upcoming-time .time-label {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.upcoming-info {
+  flex: 1;
+}
+
+.upcoming-title {
+  font-weight: 600;
+  margin-bottom: var(--reddit-space-4);
+}
+
+.upcoming-creator {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* How It Works Section */
+.how-it-works {
+  background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-tertiary) 100%);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--reddit-space-16);
+}
+
+@media (max-width: 1024px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step-card {
+  padding: var(--reddit-space-16);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-4px);
+}
+
+.step-icon {
+  font-size: 3rem;
+  margin-bottom: var(--reddit-space-8);
+}
+
+.step-title {
+  margin-bottom: var(--reddit-space-4);
+  font-weight: 600;
+}
+
+.step-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Filter Buttons */
+.section-filters {
+  display: flex;
+  gap: var(--reddit-space-8);
+}
+
+.filter-btn {
+  padding: var(--reddit-space-8) var(--reddit-space-16);
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--reddit-radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  background: var(--surface-secondary);
+  border-color: var(--primary-orange);
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background: var(--primary-orange);
+  border-color: var(--primary-orange);
+  color: white;
+}
+
+/* Leaderboard Enhancements */
+.leaderboard-card {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--reddit-space-8);
+}
+
+/* Footer */
+.app-footer {
+  border-top: 1px solid var(--border-secondary);
+}
+
+.app-footer .reddit-link {
+  color: var(--primary-orange);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.app-footer .reddit-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Loading States */
+.loading-placeholder {
+  padding: var(--reddit-space-16);
+}
+
+/* Grid System Utilities */
+.reddit-grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.reddit-grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+  .reddit-grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .reddit-grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .reddit-grid-cols-4 {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,17 +1,27 @@
 // Event Game Page JavaScript
+import { redditRealTimeClient } from './services/reddit-realtime-client.js';
 
 class EventGameManager {
     constructor() {
         this.currentQuestion = 3;
         this.totalQuestions = 10;
         this.timeRemaining = 155; // 2:35 in seconds
-        this.isTimerRunning = true;
+        this.isTimerRunning = false; // Now controlled by Reddit real-time updates
         this.responses = [];
+        this.gameId = this.extractGameIdFromUrl();
         
         this.initializeGame();
-        this.startTimer();
+        this.initializeRedditRealTime();
         this.initializeImageUpload();
         this.initializeLiveFeed();
+    }
+
+    /**
+     * Extract game ID from URL parameters
+     */
+    extractGameIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('gameId') || 'default-game';
     }
 
     initializeGame() {
@@ -20,22 +30,87 @@ class EventGameManager {
         this.animateResponseFeed();
     }
 
-    // Timer Management
-    startTimer() {
-        this.timerInterval = setInterval(() => {
-            if (this.isTimerRunning && this.timeRemaining > 0) {
-                this.timeRemaining--;
-                this.updateTimerDisplay();
-                this.updateTimerProgress();
-                
-                // Warning states
-                if (this.timeRemaining === 30) {
-                    this.showTimeWarning();
-                } else if (this.timeRemaining === 0) {
-                    this.handleTimeUp();
-                }
+    /**
+     * Initialize Reddit real-time updates system
+     * Replaces WebSocket functionality with Reddit comment polling
+     */
+    async initializeRedditRealTime() {
+        console.log('📡 Initializing Reddit real-time updates');
+        
+        try {
+            // Connect to the game
+            const connected = await redditRealTimeClient.connect(this.gameId);
+            if (!connected) {
+                console.error('❌ Failed to connect to Reddit real-time updates');
+                this.showNotification('⚠️ Connection issues - some features may be limited', 'warning');
+                return;
             }
-        }, 1000);
+
+            // Subscribe to timer updates
+            redditRealTimeClient.subscribe('timer', (update) => {
+                this.handleTimerUpdate(update);
+            });
+
+            // Subscribe to round updates
+            redditRealTimeClient.subscribe('round_start', (update) => {
+                this.handleRoundStart(update);
+            });
+
+            redditRealTimeClient.subscribe('round_end', (update) => {
+                this.handleRoundEnd(update);
+            });
+
+            // Subscribe to submission updates
+            redditRealTimeClient.subscribe('submission', (update) => {
+                this.handleNewSubmission(update);
+            });
+
+            // Subscribe to leaderboard updates
+            redditRealTimeClient.subscribe('leaderboard', (update) => {
+                this.handleLeaderboardUpdate(update);
+            });
+
+            // Subscribe to status updates
+            redditRealTimeClient.subscribe('status', (update) => {
+                this.handleStatusUpdate(update);
+            });
+
+            // Subscribe to connection events
+            redditRealTimeClient.subscribe('connection', (update) => {
+                this.handleConnectionUpdate(update);
+            });
+
+            // Subscribe to timer expiration
+            redditRealTimeClient.subscribe('timer_expired', (update) => {
+                this.handleTimeUp();
+            });
+
+            console.log('✅ Reddit real-time updates initialized');
+            this.showNotification('🔗 Connected to live updates', 'success');
+
+        } catch (error) {
+            console.error('❌ Failed to initialize Reddit real-time updates:', error);
+            this.showNotification('❌ Failed to connect to live updates', 'error');
+        }
+    }
+
+    /**
+     * Handle timer updates from Reddit real-time system
+     * Replaces the old setInterval-based timer with Reddit-synchronized updates
+     */
+    handleTimerUpdate(update) {
+        if (update.data && typeof update.data.timeRemaining === 'number') {
+            this.timeRemaining = Math.floor(update.data.timeRemaining);
+            this.isTimerRunning = this.timeRemaining > 0;
+            
+            this.updateTimerDisplay();
+            this.updateTimerProgress();
+            
+            // Warning states
+            if (this.timeRemaining === 30) {
+                this.showTimeWarning();
+            }
+        }
     }
 
     updateTimerDisplay() {
@@ -78,7 +153,6 @@ class EventGameManager {
 
     handleTimeUp() {
         this.isTimerRunning = false;
-        clearInterval(this.timerInterval);
         
         // Show transition overlay
         this.showQuestionTransition();
@@ -89,9 +163,120 @@ class EventGameManager {
             this.autoSubmitResponse();
         }
         
-        setTimeout(() => {
-            this.loadNextQuestion();
-        }, 3000);
+        // Note: Next question loading is now handled by Reddit real-time updates
+        // The server will post a new round which will trigger handleRoundStart()
+    }
+
+    /**
+     * Handle round start updates from Reddit
+     */
+    handleRoundStart(update) {
+        console.log('🎯 New round started:', update);
+        
+        if (update.data) {
+            // Update question counter if round number is provided
+            if (update.data.roundNumber) {
+                this.currentQuestion = update.data.roundNumber;
+                const counterEl = document.querySelector('.question-counter');
+                if (counterEl) {
+                    counterEl.textContent = `Question ${this.currentQuestion} of ${this.totalQuestions}`;
+                }
+            }
+
+            // Update question content if prompt is provided
+            if (update.data.prompt) {
+                this.loadQuestionFromPrompt(update.data.prompt);
+            }
+
+            // Reset timer display
+            if (update.data.timeRemaining) {
+                this.timeRemaining = update.data.timeRemaining;
+                this.isTimerRunning = true;
+            }
+        }
+
+        // Hide transition overlay
+        const overlay = document.getElementById('transitionOverlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+
+        // Reset image upload
+        this.resetImageUpload();
+        
+        this.showNotification('🎯 New question loaded!', 'success');
+    }
+
+    /**
+     * Handle round end updates from Reddit
+     */
+    handleRoundEnd(update) {
+        console.log('🏁 Round ended:', update);
+        
+        this.isTimerRunning = false;
+        
+        if (update.data && update.data.winner) {
+            this.showNotification(`🏆 Round winner: ${update.data.winner.username}!`, 'success');
+        }
+        
+        // Show transition overlay for next round
+        this.showQuestionTransition();
+    }
+
+    /**
+     * Handle new submission updates from Reddit
+     */
+    handleNewSubmission(update) {
+        console.log('📸 New submission:', update);
+        
+        if (update.data) {
+            // Add submission to live feed
+            this.addSubmissionToFeed({
+                username: update.data.playerId || 'Anonymous',
+                comment: 'New submission received!',
+                image: update.data.submissionUrl || 'https://via.placeholder.com/200x150',
+                points: 150,
+                avatar: `https://i.pravatar.cc/32?u=${update.data.playerId || 'default'}`
+            });
+            
+            this.updateFeedCount();
+        }
+    }
+
+    /**
+     * Handle leaderboard updates from Reddit
+     */
+    handleLeaderboardUpdate(update) {
+        console.log('🏆 Leaderboard updated:', update);
+        
+        if (update.data && update.data.entries) {
+            this.updateLeaderboard(update.data.entries);
+        }
+    }
+
+    /**
+     * Handle status updates from Reddit
+     */
+    handleStatusUpdate(update) {
+        console.log('📊 Status updated:', update);
+        
+        if (update.data) {
+            // Update game status display
+            this.updateGameStatus(update.data);
+        }
+    }
+
+    /**
+     * Handle connection updates
+     */
+    handleConnectionUpdate(update) {
+        if (update.type === 'connected') {
+            console.log('✅ Connected to Reddit real-time updates');
+            this.showNotification('🔗 Connected to live updates', 'success');
+        } else if (update.type === 'disconnected') {
+            console.log('❌ Disconnected from Reddit real-time updates');
+            this.showNotification('⚠️ Connection lost - reconnecting...', 'warning');
+        }
     }
 
     showQuestionTransition() {
@@ -109,38 +294,20 @@ class EventGameManager {
         }
     }
 
-    loadNextQuestion() {
-        this.currentQuestion++;
+    /**
+     * Load question content from Reddit prompt
+     * Replaces the old random question loading with Reddit-provided prompts
+     */
+    loadQuestionFromPrompt(prompt) {
+        // Update question content with Reddit prompt
+        const titleEl = document.querySelector('.question-title');
+        const descEl = document.querySelector('.question-description');
         
-        if (this.currentQuestion > this.totalQuestions) {
-            this.showGameComplete();
-            return;
-        }
+        if (titleEl) titleEl.textContent = prompt;
+        if (descEl) descEl.textContent = 'Submit your best photo matching this prompt!';
 
-        // Reset for next question
-        this.timeRemaining = 300; // 5 minutes for new question
-        this.isTimerRunning = true;
-        
-        // Update question counter
-        const counterEl = document.querySelector('.question-counter');
-        if (counterEl) {
-            counterEl.textContent = `Question ${this.currentQuestion} of ${this.totalQuestions}`;
-        }
-
-        // Hide transition overlay
-        const overlay = document.getElementById('transitionOverlay');
-        if (overlay) {
-            overlay.style.display = 'none';
-        }
-
-        // Load new question content (simulate)
-        this.loadQuestionContent();
-        
-        // Reset timer display
-        this.updateTimerDisplay();
-        this.startTimer();
-        
-        this.showNotification('🎯 New question loaded!', 'success');
+        // Clear any previous image upload
+        this.resetImageUpload();
     }
 
     loadQuestionContent() {
@@ -294,13 +461,9 @@ class EventGameManager {
 
     // Live Feed Management
     initializeLiveFeed() {
-        // Simulate new responses coming in
-        setInterval(() => {
-            if (Math.random() < 0.3) { // 30% chance every 5 seconds
-                this.simulateNewResponse();
-            }
-        }, 5000);
-
+        // Live feed is now populated by Reddit real-time updates
+        // Remove the old setInterval simulation
+        
         // Add click handlers for response actions
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('response-action')) {
@@ -309,39 +472,11 @@ class EventGameManager {
         });
     }
 
-    simulateNewResponse() {
-        const mockUsers = [
-            '@StreetPhotog', '@ArchHunter', '@CityWalker', '@BuildingSpotter',
-            '@UrbanSnap', '@PhotoExplorer', '@DesignHunter', '@CityscapeSeeker'
-        ];
-
-        const mockComments = [
-            'Amazing detail on this facade!',
-            'Perfect example of modern architecture',
-            'Love the geometric patterns here',
-            'Great lighting in this shot!',
-            'Interesting architectural style',
-            'Beautiful building design',
-            'Creative composition!',
-            'Excellent find!'
-        ];
-
-        const mockImages = [
-            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=200&h=150&fit=crop',
-            'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=200&h=150&fit=crop'
-        ];
-
-        const newResponse = {
-            username: mockUsers[Math.floor(Math.random() * mockUsers.length)],
-            comment: mockComments[Math.floor(Math.random() * mockComments.length)],
-            image: mockImages[Math.floor(Math.random() * mockImages.length)],
-            points: 150,
-            avatar: `https://i.pravatar.cc/32?img=${Math.floor(Math.random() * 20) + 1}`
-        };
-
-        this.addToLiveFeed(newResponse);
+    /**
+     * Add submission to live feed (called by Reddit real-time updates)
+     */
+    addSubmissionToFeed(submission) {
+        this.addToLiveFeed(submission);
         this.updateFeedCount();
     }
 
@@ -433,7 +568,64 @@ class EventGameManager {
         }, 500);
     }
 
+    /**
+     * Update leaderboard display with new data
+     */
+    updateLeaderboard(entries) {
+        const leaderboardContainer = document.querySelector('.mini-leaderboard');
+        if (!leaderboardContainer) return;
+
+        // Clear existing entries
+        const existingEntries = leaderboardContainer.querySelectorAll('.leaderboard-item:not(.current-user)');
+        existingEntries.forEach(entry => entry.remove());
+
+        // Add new entries
+        entries.forEach((entry, index) => {
+            if (index < 5) { // Show top 5
+                const entryEl = document.createElement('div');
+                entryEl.className = 'leaderboard-item';
+                entryEl.innerHTML = `
+                    <div class="rank">${entry.rank}</div>
+                    <div class="username">${entry.username}</div>
+                    <div class="points">${entry.score}</div>
+                `;
+                leaderboardContainer.appendChild(entryEl);
+            }
+        });
+    }
+
+    /**
+     * Update game status display
+     */
+    updateGameStatus(statusData) {
+        // Update various status indicators based on Reddit status updates
+        if (statusData.status) {
+            const statusEl = document.querySelector('.game-status');
+            if (statusEl) {
+                statusEl.textContent = statusData.status.toUpperCase();
+            }
+        }
+
+        if (statusData.submissions !== undefined) {
+            const submissionsEl = document.querySelector('.submissions-count');
+            if (submissionsEl) {
+                submissionsEl.textContent = `${statusData.submissions} submissions`;
+            }
+        }
+    }
+
+    /**
+     * Cleanup when leaving the page
+     */
+    cleanup() {
+        console.log('🧹 Cleaning up Reddit real-time connections');
+        redditRealTimeClient.disconnect();
+    }
+
     showGameComplete() {
+        // Cleanup connections before navigating
+        this.cleanup();
+        
         // Navigate to results page or show completion modal
         this.showNotification('🎉 Game Complete! Calculating final results...', 'success');
         
@@ -484,6 +676,13 @@ window.changeImage = function() {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.eventGameManager = new EventGameManager();
+});
+
+// Cleanup when page unloads
+window.addEventListener('beforeunload', () => {
+    if (window.eventGameManager) {
+        window.eventGameManager.cleanup();
+    }
 });
 
 // Export for module use

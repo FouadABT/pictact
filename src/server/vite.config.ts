@@ -7,7 +7,7 @@ export default defineConfig({
   },
   build: {
     emptyOutDir: false,
-    ssr: "index.ts",
+    ssr: "no-deps-server.ts",
     outDir: "../../dist/server",
     target: "node22",
     sourcemap: true,
